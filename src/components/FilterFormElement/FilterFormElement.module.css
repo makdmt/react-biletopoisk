@@ -1,0 +1,30 @@
+.label {
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    position: relative;
+}
+
+.input {
+
+    outline: none;
+    padding: 10px 16px;
+    border: 1px solid #E1E3E6;
+    border-radius: 8px;
+    margin-top: 4px;
+    width: 100%
+}
+
+
+.input:focus {
+    border: 1px solid #FF5500;
+    /* opacity: .4; */
+}
+
+
+.input::placeholder {
+    color: #999FA6;
+
+}

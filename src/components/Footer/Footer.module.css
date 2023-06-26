@@ -1,0 +1,13 @@
+.section {
+    background-color: var(--color-grey);
+    padding: 24px 32px;
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+}
+
+.links {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+}

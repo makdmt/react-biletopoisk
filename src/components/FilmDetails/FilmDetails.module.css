@@ -1,0 +1,47 @@
+.section {
+    padding: 24px;
+    display: flex;
+    gap: 24px;
+    color: #1b1f23;
+    /* background-color: var(--color-beige); */
+    border-radius: 8px;
+    margin-bottom: 16px;
+
+}
+
+.filmInfoSection {
+    display: grid;
+    column-gap: 32px;
+    grid-template-columns: 400px 1fr;
+    grid-template-rows: min-content min-content min-content min-content min-content 1fr;
+}
+
+.image {
+    grid-column: 1;
+    grid-row: 1 / -1;
+
+}
+
+.textInfoContainer {
+
+}
+
+.heading {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+.genreInfo {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+
+
+}

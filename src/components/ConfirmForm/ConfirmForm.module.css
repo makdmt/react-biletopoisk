@@ -1,0 +1,39 @@
+.section {
+}
+
+.heading {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.ask {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 16px 0 24px 0;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 8px;
+}
+
+.button {
+    width: 51px;
+    height: 40px;
+    border: 1px solid var(--color-orange);
+    border-radius: var(--border-radius);
+}
+
+.yesButton {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+}
+
+.noButton {
+    background-color: var(--color-white);
+    color: var(--color-orange);
+}

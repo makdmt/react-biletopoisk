@@ -1,0 +1,14 @@
+.cartElement {
+    display: flex;
+    gap: 8px;
+}
+
+.squareBack {
+    width: 28px;
+    height: 28px;
+    background-color: var(--color-orange);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

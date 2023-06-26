@@ -1,0 +1,29 @@
+.section {
+    background-color: var(--color-grey);
+    padding: 24px 32px;
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heading {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+}
+
+.cartElement {
+    display: flex;
+    gap: 8px;
+}
+
+.squareBack {
+    width: 28px;
+    height: 28px;
+    background-color: var(--color-orange);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

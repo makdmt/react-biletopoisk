@@ -1,7 +1,17 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import { StoreProvider } from '@/redux/StoreProvider'
+import { Header } from '@/components/Header/Header'
+import { Footer } from '@/components/Footer/Footer'
+
+// const inter = Inter({ subsets: ['latin'] })
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,8 +24,22 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <html lang="ru" className={roboto.className}>
+
+      <body id={'root'} className='rt'>
+        <StoreProvider>
+          <Header />
+          <main>
+            {children}
+          </main>
+        </StoreProvider>
+
+        <Footer />
+      </body>
+
+    </html >
   )
 }
+
+{/* <footer>Footer</footer> */ }
+{/* <body className={inter.className}>{children}</body> */ } 
