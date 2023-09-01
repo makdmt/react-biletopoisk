@@ -1,22 +1,16 @@
 .section {
-    padding: 24px;
-    display: flex;
+    flex-direction: row;
     gap: 24px;
-    color: #1b1f23;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    margin-bottom: 16px;
-
 }
 
-.image {
+.imageContainer {
     flex-basis: 100px;
 }
 
-.textInfoContainer {
-
+.image {
+    object-fit: cover;
+    border-radius: var(--border-radius);
 }
-
 
 .heading {
     font-size: 20px;
@@ -38,5 +32,29 @@
 
 .counterContainer {
     margin-left: auto;
+}
 
+
+@media (max-width: 970px) {
+    .imageContainer {
+        max-width: 80px;
+    }
+
+
+    .image {
+        max-width: 80px;
+        max-height: 100px;
+    }
+
+    .heading {
+        font-size: 18px;
+        line-height: 1.2;
+    }
+}
+
+
+@media (max-width: 670px) {
+    .heading {
+        font-size: 16px;
+    }
 }

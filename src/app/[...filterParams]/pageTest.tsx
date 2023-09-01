@@ -53,9 +53,9 @@ export default function FilteredFilmsList({ params }: { params: { filterParams: 
 
     }
 
-    // if (!filmDetails || isError) {
-    //     return <span>Not Found</span>
-    // }
+    if (!films || isError) {
+        return <span>Not Found</span>
+    }
 
     return (
         <section className={styles.section}>

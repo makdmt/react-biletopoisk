@@ -1,6 +1,6 @@
 .section {
     background-color: var(--color-grey);
-    padding: 24px 32px;
+    padding: var(--default-desktop-paddings);
     color: var(--color-white);
     display: flex;
     justify-content: space-between;
@@ -10,4 +10,26 @@
     font-size: 20px;
     font-weight: 400;
     line-height: 23px;
+}
+
+@media (max-width: 970px) {
+    .section {
+        padding: var(--default-tablet-paddings);
+    }
+
+    .links {
+        font-size: 18px;
+        line-height: 1.2;
+    }
+}
+
+
+@media (max-width: 550px) {
+    .section {
+        padding: var(--default-mobile-paddings);
+    }
+
+    .links {
+        font-size: 16px;
+    }
 }

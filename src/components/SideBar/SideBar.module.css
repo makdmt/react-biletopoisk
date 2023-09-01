@@ -1,0 +1,33 @@
+.section {
+    position: sticky;
+    top: 110px;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 970px) {
+    .section {
+        top: 76px;
+    }
+
+    .section_active {
+        transform: translateX(100vw);
+    }
+}
+
+
+@media (max-width: 550px) {
+    .section {
+        position: fixed;
+        width: 250px;
+        left: -100vw;
+        top: 48px;
+        transition: transform .4s ease-out;
+        box-shadow: -10px -5px 22px -4px rgba(27, 31, 35, 0.12);
+    }
+
+    .section_active {
+        left: -250px;
+    }
+}

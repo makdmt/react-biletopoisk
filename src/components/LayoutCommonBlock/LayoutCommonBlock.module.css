@@ -1,0 +1,13 @@
+.section {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 970px) {
+    .section {
+        padding: 12px;
+    }
+}

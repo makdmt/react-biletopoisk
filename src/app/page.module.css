@@ -1,4 +1,22 @@
 .section {
     display: flex;
+    align-items: flex-start;
     gap: 23px;
+    padding: var(--default-desktop-paddings);
+    position: relative;
+    min-height: 85vh;
+}
+
+
+@media (max-width: 970px) {
+    .section {
+        padding: var(--default-tablet-paddings);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 550px) {
+    .section {
+        padding: var(--default-mobile-paddings);
+    }
 }

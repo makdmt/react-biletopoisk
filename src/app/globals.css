@@ -6,39 +6,42 @@
 
 html,
 body {
-  /* max-width: 100vw; */
-  max-width: 1024px;
+  max-width: 1920px;
   margin: 0 auto;
-  overflow-x: hidden;
   background-color: var(--color-beige);
 }
 
-main {
-  padding: 24px 32px;
-  background-color: #F5F5F5;
+.layout {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--gray-1);
 }
-
 
 a {
   color: inherit;
   text-decoration: none;
-}
-
-li {
-  list-style: none;
+  transition: opacity .3s ease-in;
 }
 
 button {
-    background-color: unset;
+  background-color: unset;
   border: 0 solid transparent;
   padding: 0;
-  margin-left: auto;
   cursor: pointer;
   transition: all .3s ease-in;
 }
 
 button:hover {
-  /* opacity: .6; */
+  opacity: .6;
+}
+
+
+a:hover {
+  opacity: .6;
+}
+
+li {
+  list-style: none;
 }
 
 :root {
@@ -48,6 +51,12 @@ button:hover {
   --color-black: #000000;
   --color-orange: #FF5500;
 
-
+  --default-desktop-paddings: 24px 32px;
+  --default-tablet-paddings: 16px 18px;
+  --default-mobile-paddings: 8px 12px;
   --border-radius: 8px;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

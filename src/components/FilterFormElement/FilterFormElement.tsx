@@ -11,7 +11,7 @@ import { FilterCriteriaList } from "../FilterCriteriaList/FilterCriteriaList";
 
 import type { ICinima, TFilterParams, TGenresInApi } from "@/services/types/data";
 
-import { genres, filterParams } from "@/services/consts";
+import { genres, filterLabels } from "@/services/consts";
 import { useGetCinimasQuery } from "@/services/biletopoisk-api";
 
 
@@ -42,17 +42,14 @@ export const FilterFormElement: FC<IFilterFormElement> = ({ type, filterParam, p
         }
     }, [cinimas])
 
-    const label = filterParams[filterParam];
+    const label = filterLabels[filterParam];
 
 
-    // const [dropOpen, setDropOpen] = useState<string | undefined>();
     const { dropOpen, setDropOpen } = React.useContext(FilterFormContext);
     const relativeElement = useRef<any>();
 
     const onClickHandler = () => {
-        setDropOpen(filterParam);
-
-        // !dropOpen ? setDropOpen(filterParam) : setDropOpen(undefined);
+        !!setDropOpen && setDropOpen(filterParam);
     }
 
     const filterCategories: IfilterCategories = {
@@ -61,7 +58,7 @@ export const FilterFormElement: FC<IFilterFormElement> = ({ type, filterParam, p
     }
 
     const filterCategoryList = React.useMemo(() => {
-        if (!!dropOpen && filterCategories[dropOpen]) return Object.entries(filterCategories[dropOpen])
+        if (!!dropOpen && filterCategories.hasOwnProperty(dropOpen)) return Object.entries((filterCategories as any)[dropOpen])
     }, [dropOpen])
 
     const { router, pathname, searchParams, createQueryString } = useRouterWithSeacrhParams();

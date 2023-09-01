@@ -4,7 +4,6 @@ import React, { FC } from "react";
 
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { selectCartModule } from "@/redux/features/cart/selector";
-import { cartActions } from "@/redux/features/cart";
 
 import { CartIcon } from "../Icons/CartIcon";
 
@@ -22,19 +21,10 @@ export const TotalCount: FC = () => {
         total += cart[item];
     }
 
-
     return (
         <Link href="/cart" className={styles.cartElement}>
-
             <p className={styles.squareBack}>{total}</p>
             <CartIcon />
         </Link>
-
-
-        // <div className={styles.section}>
-
-
-        //     <Link href="/cart"></Link>
-        // </div>
     )
 }

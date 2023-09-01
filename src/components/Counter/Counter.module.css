@@ -26,3 +26,20 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (max-width: 970px) {
+    .section {
+        gap: 6px;
+        align-items: center;
+    }
+
+
+    .amountNumber {
+        font-size: 16px;
+    }
+
+    .button {
+        width: 18px;
+        height: 18px; 
+    }
+}

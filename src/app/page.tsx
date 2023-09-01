@@ -8,17 +8,15 @@ import type { IFilmDetails } from "@/services/types/data";
 import { FilterForm } from "@/components/FilterForm/FilterForm";
 
 import styles from './page.module.css'
+import { SideBar } from "@/components/SideBar/SideBar";
+import { LayoutCommonBlock } from "@/components/LayoutCommonBlock/LayoutCommonBlock";
 
 export default function Home() {
 
-  const { data: films, isLoading, isError }: { data: Array<IFilmDetails>, isLoading: boolean, isError: boolean } = useGetMoviesQuery();
-  const { data: cinimas } = useGetCinimasQuery();
+  const { data: films, isLoading, isError } = useGetMoviesQuery();
 
   const searchParams = useSearchParams();
 
-
-  // console.log(params.filterParams);
-  // console.log(cinimas);
 
   const cinimaIdforFilter = searchParams.get('cinima') || '';
   const genreforFilter = searchParams.get('genre') || '';
@@ -28,7 +26,6 @@ export default function Home() {
 
   let filmsToRender: Array<IFilmDetails> = filmsInCinimas?.length > 0 ? filmsInCinimas : films;
 
-  // if (cinimaIdforFilter.length > 0) filmsToRender.concat(filmsInCinimas)
   if (!!genreforFilter) filmsToRender = filmsToRender?.filter((film: IFilmDetails) => film.genre === genreforFilter);
   if (!!nameforFilter) filmsToRender = filmsToRender?.filter((film: IFilmDetails) => {
     const namePart = film.title.substring(0, nameforFilter.length);
@@ -40,19 +37,23 @@ export default function Home() {
 
 
   if (isLoading) {
-    return <span>Loading...</span>
+    return <main className={styles.section}>Loading...</main>
 
   }
 
   if (!films || films.length === 0 || isError) {
-    return <span>Not Found</span>
+    return <main className={styles.section}>Произошла ошибка. Попробуйте перезагрузить страницу...</main>
   }
 
 
   return (
-    <section className={styles.section}>
-      <FilterForm />
+    <main className={styles.section}>
+      <SideBar>
+        <LayoutCommonBlock >
+          <FilterForm />
+        </LayoutCommonBlock>
+      </SideBar>
       <FilmsList films={filmsToRender} />
-    </section>
+    </main>
   )
 }

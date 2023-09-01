@@ -6,13 +6,14 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 import { selectItemAmount } from '../../redux/features/cart/selector';
 import { cartActions } from "@/redux/features/cart";
 import { Counter } from "../Counter/Counter";
-import { Modal } from "../Modal/modal";
+import { Modal } from "../Modal/Modal";
 import { ConfirmForm } from "../ConfirmForm/ConfirmForm";
 
 import Image from "next/image";
 import type { IFilmDetails } from "@/services/types/data";
 
 import styles from './FilmListElement.module.css'
+import { LayoutCommonBlock } from "../LayoutCommonBlock/LayoutCommonBlock";
 
 export const FilmListElement: FC<IFilmDetails & { isRenderInCart: boolean }> = ({ id, title, genre, posterUrl, isRenderInCart }) => {
 
@@ -20,6 +21,7 @@ export const FilmListElement: FC<IFilmDetails & { isRenderInCart: boolean }> = (
     const amount = useSelector((state) => selectItemAmount(state, id));
     const [modalOpened, setmodalOpened] = useState<boolean>(false);
     const router = useRouter();
+
 
     const openModal = (evt: React.MouseEvent<HTMLButtonElement>) => {
         evt.stopPropagation();
@@ -53,24 +55,28 @@ export const FilmListElement: FC<IFilmDetails & { isRenderInCart: boolean }> = (
 
 
     return (
-        <li className={styles.section} onClick={() => router.push(`details/${id}`)}>
-            <Image src={posterUrl} alt={title} width={100} height={120} loading='lazy' className={styles.image} />
-            <div className={styles.textBlock}>
-                <h2 className={styles.heading}>{title}</h2>
-                <p className={styles.genreInfo}>{genre}</p>
-            </div>
-            <div className={styles.counterContainer}>
-                <Counter filmId={id} extraDecrementHandler={isRenderInCart ? decrementHandler : undefined} />
-                {isRenderInCart && <button onClick={openModal}>delete</button>}
-            </div>
-            {modalOpened && <Modal closeByClickFunc={closeModalByClickFunc} closeByEscFunc={closeModalByEscFunc} closeByXFunc={closeModalByXFunc} >
-                <ConfirmForm
-                    heading="Удаление билета"
-                    ask="Вы уверены, что хотите удалить билет?"
-                    yesBtnFunc={deleteFilmFromCart}
-                    noBtnFunc={closeModalByClickFunc}
-                />
-            </Modal>}
+        <li className={styles.container} onClick={() => router.push(`details/${id}`)}>
+            <LayoutCommonBlock extraClass={styles.section} >
+                <div className={styles.imageContainer}>
+                    <Image src={posterUrl} alt={title} width={100} height={120} loading='lazy' className={styles.image} />
+                </div>
+                <div className={styles.textBlock}>
+                    <h2 className={styles.heading}>{title}</h2>
+                    <p className={styles.genreInfo}>{genre}</p>
+                </div>
+                <div className={styles.counterContainer}>
+                    <Counter filmId={id} extraDecrementHandler={isRenderInCart ? decrementHandler : undefined} />
+                    {isRenderInCart && <button onClick={openModal}>delete</button>}
+                </div>
+                {modalOpened && <Modal closeByClickFunc={closeModalByClickFunc} closeByEscFunc={closeModalByEscFunc} closeByXFunc={closeModalByXFunc} >
+                    <ConfirmForm
+                        heading="Удаление билета"
+                        ask="Вы уверены, что хотите удалить билет?"
+                        yesBtnFunc={deleteFilmFromCart}
+                        noBtnFunc={closeModalByClickFunc}
+                    />
+                </Modal>}
+            </LayoutCommonBlock>
         </li>
     )
 }

@@ -1,35 +1,83 @@
 'use client'
 
 import React, { FC } from "react";
+
+
+import { FilterFormSelectInput } from "../FilterFormSelectInput/FilterFormSelectInput";
 import { FilterFormElement } from "../FilterFormElement/FilterFormElement";
 
+import { useGetCinimasQuery } from "@/services/biletopoisk-api";
+
+import type { TFilters, IFilterCategoryOptions } from '../../services/types/data'
+import { filterLabels, genres } from "@/services/consts";
+import { isMobile } from "@/utils/utils";
+
 import styles from './FilterForm.module.css'
+import { Button } from "../Button/Button";
 
 
-interface IFilterFormElement {
-    type: string,
-    label: string,
-    disabled?: boolean,
-}
+//Используем контекст для связи SelectInputs, чтобы одновременно можно было открыть только один dropdown
+type TDropOpenCategory = Exclude<TFilters, 'name'> | undefined;
 
-export const FilterFormContext = React.createContext(false)
+export const FilterFormContext = React.createContext<{ openedDrop: TDropOpenCategory, toggleDropdown: Function | undefined }>({
+    openedDrop: undefined,
+    toggleDropdown: undefined
+})
+
+
 
 export const FilterForm: FC = () => {
 
-    const [dropOpen, setActiveDrop] = React.useState();
+    const [openedDrop, setActiveDrop] = React.useState<TDropOpenCategory>(undefined);
 
-    const setDropOpen = React.useCallback((category: any) => {
+    const toggleDropdown = React.useCallback((category: TDropOpenCategory): void => {
         setActiveDrop(active => active === category ? undefined : category)
-    }, [])
+    }, []);
+
+
+    //Собираем данные для пропсов фильтра genre
+    const genreFilterLabel = filterLabels.genre;
+
+    const genreFilterOptions: Array<IFilterCategoryOptions | undefined> = React.useMemo(() => {
+        const arr = [{ optionNameInApi: '', optionNameInUi: 'Не выбрано' }];
+        for (let key in genres) {
+            arr.push({ optionNameInApi: key, optionNameInUi: (genres as any)[key] })
+        }
+        return arr;
+    }, [genres]);
+
+
+    //Собираем данные для пропсов фильтра cinima
+    const cinimaFilterLabel = filterLabels.cinima;
+
+    const { data: cinimas } = useGetCinimasQuery();
+    const cinimaFilterOptions: Array<IFilterCategoryOptions | undefined> = React.useMemo(() => {
+        const arr = [{ optionNameInApi: '', optionNameInUi: 'Не выбрано' }];
+        !!cinimas && cinimas.forEach(cinima => {
+            arr.push({ optionNameInApi: cinima.id, optionNameInUi: cinima.name })
+        });
+        return arr;
+    }, [cinimas])
+
+
+    //Для мобильной версии добавляем кнопку "Показать результаты"
+    const [mobile, setMobile] = React.useState(isMobile());
+    React.useLayoutEffect(() => {
+        setMobile(isMobile());
+    })
+
+
+
 
     return (
-        <form className={styles.section}>
+        <form className={`${styles.section}`}>
             <h2 className={styles.heading}>Фильтр поиска</h2>
-            <FilterFormContext.Provider value={{ dropOpen, setDropOpen }}>
+            <FilterFormContext.Provider value={{ openedDrop, toggleDropdown }}>
                 <FilterFormElement type='text' filterParam='name' placeholder='Введите название' />
-                <FilterFormElement type='select' filterParam='genre' placeholder='Выберите жанр' />
-                <FilterFormElement type='select' filterParam='cinima' placeholder='Выберите кинотеатр' />
+                <FilterFormSelectInput id={'genre'} label={genreFilterLabel} options={genreFilterOptions} placeholder={'Выберите жанр'}></FilterFormSelectInput>
+                <FilterFormSelectInput id={'cinima'} label={cinimaFilterLabel} options={cinimaFilterOptions} placeholder={'Выберите кинотеатр'}></FilterFormSelectInput>
             </FilterFormContext.Provider>
+            {mobile && <Button design={'accept'} type={'button'} label={'Показать результаты'} extraClass={styles.mobileBtn} />}
         </form>
     )
 }

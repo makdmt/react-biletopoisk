@@ -13,9 +13,6 @@ interface IModal {
 
 export const Modal = ({ closeByEscFunc, closeByClickFunc, closeByXFunc, children }: IModal): ReactPortal => {
   const rootHtml = document.getElementById('root') as HTMLElement;
-  // const rootHtml = document.querySelector('.rt') as HTMLElement;
-
-
 
   React.useEffect(() => {
     document.addEventListener("keydown", closeByEscFunc);

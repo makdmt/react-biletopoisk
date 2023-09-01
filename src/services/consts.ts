@@ -1,13 +1,13 @@
-import type { TGenresInApi, TFilterParams } from "./types/data";
+import type { TFilters, TFilterLabelsInUI, TFilterGenresInApi, TFilterGenresInUI, } from "./types/data";
 
-export const genres: { [Property in TGenresInApi]: string } = {
-    fantasy: 'фэнтези',
-    horror: 'ужасы',
-    action: 'боевик',
-    comedy: 'комедия'
+export const genres: { [Property in TFilterGenresInApi]: TFilterGenresInUI } = {
+    fantasy: 'Фэнтези',
+    horror: 'Ужасы',
+    action: 'Боевик',
+    comedy: 'Комедия'
 }
 
-export const filterParams: { [Property in TFilterParams]: string } = {
+export const filterLabels: { [Property in TFilters]: TFilterLabelsInUI } = {
     name: 'Название',
     genre: 'Жанр',
     cinima: 'Кинотеатр'
