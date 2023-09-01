@@ -1,5 +1,3 @@
-'use client'
-
 import React, { FC, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux/es/exports";
@@ -28,17 +26,12 @@ export const FilmListElement: FC<IFilmDetails & { isRenderInCart: boolean }> = (
         setmodalOpened(true);
     }
 
-    const closeModalByXFunc = React.useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
+    const closeModalByClick = React.useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
         evt.stopPropagation();
         setmodalOpened(false);
     }, []);
 
-    const closeModalByClickFunc = React.useCallback((evt: React.MouseEvent<HTMLElement>) => {
-        evt.stopPropagation();
-        evt.currentTarget === evt.target && setmodalOpened(false);
-    }, [])
-
-    const closeModalByEscFunc = React.useCallback((evt: React.KeyboardEvent) => {
+    const closeModalByPressEsc = React.useCallback((evt: KeyboardEvent) => {
         evt.stopPropagation();
         evt.key === 'Escape' && setmodalOpened(false);
     }, [])
@@ -68,12 +61,12 @@ export const FilmListElement: FC<IFilmDetails & { isRenderInCart: boolean }> = (
                     <Counter filmId={id} extraDecrementHandler={isRenderInCart ? decrementHandler : undefined} />
                     {isRenderInCart && <button onClick={openModal}>delete</button>}
                 </div>
-                {modalOpened && <Modal closeByClickFunc={closeModalByClickFunc} closeByEscFunc={closeModalByEscFunc} closeByXFunc={closeModalByXFunc} >
+                {modalOpened && <Modal closeByClickFunc={closeModalByClick} closeByEscFunc={closeModalByPressEsc} closeByXFunc={closeModalByClick} >
                     <ConfirmForm
                         heading="Удаление билета"
                         ask="Вы уверены, что хотите удалить билет?"
                         yesBtnFunc={deleteFilmFromCart}
-                        noBtnFunc={closeModalByClickFunc}
+                        noBtnFunc={closeModalByClick}
                     />
                 </Modal>}
             </LayoutCommonBlock>

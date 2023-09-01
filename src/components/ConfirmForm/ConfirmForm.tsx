@@ -1,10 +1,4 @@
-'use client'
-
 import React, { FC } from "react";
-
-import { useDispatch, useSelector } from "react-redux/es/exports";
-import { selectItemAmount } from "@/redux/features/cart/selector";
-import { cartActions } from "@/redux/features/cart";
 
 import styles from './ConfirmForm.module.css'
 

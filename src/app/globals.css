@@ -55,6 +55,10 @@ li {
   --default-tablet-paddings: 16px 18px;
   --default-mobile-paddings: 8px 12px;
   --border-radius: 8px;
+
+  --h2-desktop-fontsize: 20px;
+  --h2-tablet-fontsize: 18px;
+  --h2-mobile-fontsize: 16px;
 }
 
 .no-scroll {

@@ -8,7 +8,7 @@ interface ILayoutCommonBlock {
     extraClass?: string
 }
 
-export const LayoutCommonBlock: FC<ILayoutCommonBlock> = ({children, extraClass}) => {
+export const LayoutCommonBlock: FC<ILayoutCommonBlock> = ({ children, extraClass }) => {
 
     return (
         <div className={`${styles.section} ${extraClass}`}>

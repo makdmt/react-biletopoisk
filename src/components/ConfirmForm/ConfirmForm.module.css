@@ -1,10 +1,7 @@
-.section {
-}
-
 .heading {
-    font-size: 20px;
+    font-size: var(--h2-desktop-fontsize);
     font-weight: 700;
-    line-height: 20px;
+    line-height: 1.2;
     margin: 0;
     padding: 0;
 }
@@ -36,4 +33,21 @@
 .noButton {
     background-color: var(--color-white);
     color: var(--color-orange);
+}
+
+@media (max-width: 970px) {
+    .heading {
+        font-size: var(--h2-tablet-fontsize);
+    }
+
+    .ask {
+        font-size: 14px;
+    }
+}
+
+
+@media (max-width: 670px) {
+    .heading {
+        font-size: var(--h2-mobile-fontsize);
+    }
 }
