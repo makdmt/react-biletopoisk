@@ -1,0 +1,28 @@
+.drop {
+    position: fixed;
+    background-color: var(--color-white);
+    border: 1px solid #FFFFFF;
+    box-shadow: 0px 10px 22px -4px rgba(27, 31, 35, 0.32);
+    border-radius: 8px;
+    z-index: 10;
+
+    height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-light-grey) var(--color-beige);
+}
+
+.drop::-webkit-scrollbar {
+    width: 8px;
+
+}
+
+.drop::-webkit-scrollbar-track {
+    background-color: var(--color-beige);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.drop::-webkit-scrollbar-thumb {
+    background-color: var(--color-light-grey);
+}

@@ -1,0 +1,13 @@
+.listElement {
+    padding: 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+.listElement_highlighted {
+    background-color: var(--color-beige);
+}
+
+.listElement:hover {
+    background-color: var(--color-beige);
+}

@@ -35,6 +35,10 @@ button:hover {
   opacity: .6;
 }
 
+button:focus {
+  outline: 1px solid var(--color-grey)
+}
+
 
 a:hover {
   opacity: .6;
@@ -47,6 +51,7 @@ li {
 :root {
   --color-white: #FFFFFF;
   --color-beige: #F5F5F5;
+  --color-light-grey: #c5c5c5;
   --color-grey: #333333;
   --color-black: #000000;
   --color-orange: #FF5500;

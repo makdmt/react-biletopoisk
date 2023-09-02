@@ -1,0 +1,14 @@
+.closeBtn {
+  position: absolute;
+  top: 25px;
+  right: 27px;
+  width: 10px;
+  height: 10px;
+}
+
+@media (max-width: 970px) {
+  .closeBtn {
+    top: 15px;
+    right: 17px;
+  }
+}

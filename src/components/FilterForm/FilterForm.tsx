@@ -2,6 +2,7 @@
 
 import React, { FC } from "react";
 
+import { LayoutContext } from "@/app/layout";
 
 import { FilterFormSelectInput } from "../FilterFormSelectInput/FilterFormSelectInput";
 import { FilterFormElement } from "../FilterFormElement/FilterFormElement";
@@ -16,6 +17,7 @@ import styles from './FilterForm.module.css'
 import { Button } from "../Button/Button";
 
 
+
 //Используем контекст для связи SelectInputs, чтобы одновременно можно было открыть только один dropdown
 type TDropOpenCategory = Exclude<TFilters, 'name'> | undefined;
 
@@ -27,6 +29,8 @@ export const FilterFormContext = React.createContext<{ openedDrop: TDropOpenCate
 
 
 export const FilterForm: FC = () => {
+
+    const { hideSideBar } = React.useContext(LayoutContext)
 
     const [openedDrop, setActiveDrop] = React.useState<TDropOpenCategory>(undefined);
 
@@ -66,18 +70,25 @@ export const FilterForm: FC = () => {
         setMobile(isMobile());
     })
 
+    //Для мобильной версии submit скрывает сайдбар с формой
+
+    const onSubmit = (evt: React.FormEvent) => {
+        evt.preventDefault();
+        isMobile() && !openedDrop && hideSideBar();
+    }
+
 
 
 
     return (
-        <form className={`${styles.section}`}>
+        <form name="filterForm" className={`${styles.section}`} onSubmit={onSubmit}>
             <h2 className={styles.heading}>Фильтр поиска</h2>
             <FilterFormContext.Provider value={{ openedDrop, toggleDropdown }}>
                 <FilterFormElement type='text' filterParam='name' placeholder='Введите название' />
                 <FilterFormSelectInput id={'genre'} label={genreFilterLabel} options={genreFilterOptions} placeholder={'Выберите жанр'}></FilterFormSelectInput>
                 <FilterFormSelectInput id={'cinima'} label={cinimaFilterLabel} options={cinimaFilterOptions} placeholder={'Выберите кинотеатр'}></FilterFormSelectInput>
             </FilterFormContext.Provider>
-            {mobile && <Button design={'accept'} type={'button'} label={'Показать результаты'} extraClass={styles.mobileBtn} />}
+            {mobile && <Button design={'accept'} type={'submit'} label={'Показать результаты'} extraClass={styles.mobileBtn} />}
         </form>
     )
 }

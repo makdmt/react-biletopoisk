@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { FilmsList } from "@/components/FilmsList/FilmsList"
 import type { IFilmDetails } from "@/services/types/data";
 import { FilterForm } from "@/components/FilterForm/FilterForm";
+import { CloseButton } from "@/components/CloseButton/CloseButton";
 
 import styles from './page.module.css'
 import { SideBar } from "@/components/SideBar/SideBar";
@@ -49,9 +50,7 @@ export default function Home() {
   return (
     <main className={styles.section}>
       <SideBar>
-        <LayoutCommonBlock >
-          <FilterForm />
-        </LayoutCommonBlock>
+        <FilterForm />
       </SideBar>
       <FilmsList films={filmsToRender} />
     </main>

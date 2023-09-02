@@ -6,7 +6,7 @@ import { FilterFormContext } from "../FilterForm/FilterForm";
 import { useRouterWithSeacrhParams } from "@/hooks/useRouterWithSeacrhParams";
 
 import styles from './FilterFormElement.module.css'
-import { DropElement } from "../DropElement/FilmListElement/DropElement";
+import { DropElement } from "../DropElement/DropElement";
 import { FilterCriteriaList } from "../FilterCriteriaList/FilterCriteriaList";
 
 import type { ICinima, TFilterParams, TGenresInApi } from "@/services/types/data";

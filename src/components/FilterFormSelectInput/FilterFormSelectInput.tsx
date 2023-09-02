@@ -6,7 +6,7 @@ import { FilterFormContext } from "../FilterForm/FilterForm";
 import { useRouterWithSeacrhParams } from "@/hooks/useRouterWithSeacrhParams";
 
 import styles from './FilterFormSelectInput.module.css'
-import { DropElement } from "../DropElement/FilmListElement/DropElement";
+import { DropElement } from "../DropElement/DropElement";
 import { FilterFormSelectInputOptionList } from "../FilterFormSelectInputOptionList/FilterFormSelectInputOptionList";
 
 import type { TFilters, IFilterCategoryOptions } from "@/services/types/data";
@@ -31,12 +31,37 @@ interface IfilterCategories {
 
 export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, options, placeholder }) => {
 
-    //управление выпадающим списком - связка через контекст с другими input, чтобы нельзя было одновременно открыть несколько dropdown.
+    //Управление выпадающим списком - связка через контекст с другими input, чтобы нельзя было одновременно открыть несколько dropdown.
+    //Асинхронное выполнение для корректной обработки событий focus и blur, при переключении инпутов и выбора опции в списке dropdown.
     const { openedDrop, toggleDropdown } = React.useContext(FilterFormContext);
 
-    const onClickHandler = () => {
-        !!toggleDropdown && toggleDropdown(id);
+    const dropDownClickOrFocusHandler = React.useCallback((evt: React.FocusEvent | React.MouseEvent) => {
+        evt.stopPropagation();
+        setTimeout(() => {
+            !!toggleDropdown && toggleDropdown(id);
+        }, 170)
+    }, [])
+
+    const dropDownOnBlurHandler = (evt: React.FocusEvent | React.MouseEvent) => {
+        evt.stopPropagation();
+        setTimeout(() => {
+            !!toggleDropdown && toggleDropdown(undefined);
+        }, 150)
     }
+
+    const dropDownKeyboardHandler = React.useCallback((evt: KeyboardEvent) => {
+        if (openedDrop === id && evt.key === 'Escape') !!toggleDropdown && toggleDropdown(undefined);
+        if (openedDrop === id) return;
+        if (openedDrop === undefined && relativeElement.current === document.activeElement && evt.key === 'ArrowDown') {
+            !!toggleDropdown && toggleDropdown(id);
+        }
+    }, [openedDrop, id]);
+
+
+    React.useEffect(() => {
+        document.addEventListener('keydown', dropDownKeyboardHandler);
+        return () => { document.removeEventListener('keydown', dropDownKeyboardHandler); }
+    }, [openedDrop, id])
 
 
     //Выбранное значение берется из query параметра адресной строки, а затем резолвится в соответствующее имя опции для подстановки в placeholder
@@ -62,29 +87,24 @@ export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, o
             const wordsToSeach = option?.optionNameInUi.split(' ');
             return wordsToSeach && wordsToSeach.some(word => word.slice(0, inputLength).toLowerCase() === inputLetters.toLowerCase());
         })
-
         setOptionsToRender(filteredOptions);
-
-        console.log(optionsToRender);
-
-
     }
-
-
 
 
     // ref используется для вычисления координат dropdown
     const relativeElement = useRef<any>();
 
 
-
     return (
-        <label className={styles.label} ref={relativeElement} onClick={onClickHandler}>{label}<br />
-            <input className={styles.input} type='text' onChange={onChange} placeholder={selectedOptionName ? selectedOptionName : placeholder} />
+        <div>
+            <label className={styles.label} htmlFor={label} >{label}<br /></label>
+            <input className={styles.input} id={label} ref={relativeElement} type='text' onFocus={dropDownClickOrFocusHandler} onBlur={dropDownOnBlurHandler} onChange={onChange} placeholder={selectedOptionName ? selectedOptionName : placeholder} />
             {openedDrop === id && relativeElement.current && options.length > 0 && <DropElement reff={relativeElement.current}>
                 <FilterFormSelectInputOptionList categoryName={id} options={optionsToRender} />
             </DropElement>}
-        </label>
+        </div>
+
+
     )
 
 
