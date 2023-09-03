@@ -2,10 +2,11 @@
 
 import React, { FC } from "react";
 
+import { useRouterWithSeacrhParams } from "@/hooks/useRouterWithSeacrhParams";
+
 import { LayoutContext } from "@/app/layout";
 
 import { FilterFormSelectInput } from "../FilterFormSelectInput/FilterFormSelectInput";
-import { FilterFormElement } from "../FilterFormElement/FilterFormElement";
 
 import { useGetCinimasQuery } from "@/services/biletopoisk-api";
 
@@ -15,17 +16,24 @@ import { isMobile } from "@/utils/utils";
 
 import styles from './FilterForm.module.css'
 import { Button } from "../Button/Button";
+import { FilterFormTextInput } from "../FilterFormTextInput/FilterFormTextInput";
 
+
+type TDropOpenCategory = Exclude<TFilters, 'name'> | undefined;
+
+interface IFilterFormContext {
+    openedDrop: TDropOpenCategory,
+    toggleDropdown: Function | undefined,
+    applyFilter: Function
+}
 
 
 //Используем контекст для связи SelectInputs, чтобы одновременно можно было открыть только один dropdown
-type TDropOpenCategory = Exclude<TFilters, 'name'> | undefined;
-
-export const FilterFormContext = React.createContext<{ openedDrop: TDropOpenCategory, toggleDropdown: Function | undefined }>({
+export const FilterFormContext = React.createContext<IFilterFormContext>({
     openedDrop: undefined,
-    toggleDropdown: undefined
+    toggleDropdown: undefined,
+    applyFilter: () => { }
 })
-
 
 
 export const FilterForm: FC = () => {
@@ -71,11 +79,26 @@ export const FilterForm: FC = () => {
     })
 
     //Для мобильной версии submit скрывает сайдбар с формой
-
     const onSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
         isMobile() && !openedDrop && hideSideBar();
     }
+
+    //Значения фильтров применяются путем добавления в query параметры:
+    const { router, pathname, createQueryString, searchParams } = useRouterWithSeacrhParams();
+
+    const applyFilter = (filterId: TFilters, value: string) => {
+        router.push(pathname + '?' + createQueryString(filterId, value));
+    }
+
+    //Фильтр по имени запускается по вводу в input:
+
+    const textInputHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        applyFilter('name', evt.target.value)
+    }
+
+
+
 
 
 
@@ -83,8 +106,8 @@ export const FilterForm: FC = () => {
     return (
         <form name="filterForm" className={`${styles.section}`} onSubmit={onSubmit}>
             <h2 className={styles.heading}>Фильтр поиска</h2>
-            <FilterFormContext.Provider value={{ openedDrop, toggleDropdown }}>
-                <FilterFormElement type='text' filterParam='name' placeholder='Введите название' />
+            <FilterFormContext.Provider value={{ openedDrop, toggleDropdown, applyFilter }}>
+                <FilterFormTextInput id={'name'} label={'Название'} placeholder={searchParams.get('name') || "Введите название"} onChange={textInputHandler} isDebounced={true} />
                 <FilterFormSelectInput id={'genre'} label={genreFilterLabel} options={genreFilterOptions} placeholder={'Выберите жанр'}></FilterFormSelectInput>
                 <FilterFormSelectInput id={'cinima'} label={cinimaFilterLabel} options={cinimaFilterOptions} placeholder={'Выберите кинотеатр'}></FilterFormSelectInput>
             </FilterFormContext.Provider>
