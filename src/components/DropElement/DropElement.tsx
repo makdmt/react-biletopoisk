@@ -1,29 +1,32 @@
-'use client'
-
-import React, { FC, ReactElement, useState, ReactPortal, MouseEventHandler, MutableRefObject } from "react";
+import React, { FC, ReactElement } from "react";
 import ReactDOM from 'react-dom'
 
 import styles from './DropElement.module.css'
 
 
 interface IDropElement {
-    reff: HTMLElement,
+    top: number,
+    left: number,
+    width: number,
+    isRenderInRoot?: boolean,
     children: ReactElement
 }
 
 
-export const DropElement: FC<IDropElement> = ({ reff, children }) => {
-
-    let sizes = reff.getBoundingClientRect()
-    let top = sizes.bottom;
-    let left = sizes.left;
-
+export const DropElement: FC<IDropElement> = ({ top, left, width, isRenderInRoot = false, children }) => {
 
     const rootHtml = document.getElementById('root') as HTMLElement;
 
-    return ReactDOM.createPortal((
-        <div className={styles.drop} style={{ width: sizes.width, top: top, left: left }}>
+    if (isRenderInRoot) return ReactDOM.createPortal((
+        <div className={styles.drop} style={{ top, left, width, position: 'fixed' }}>
             {children}
         </div>
     ), rootHtml)
+
+
+    return (
+        <div className={styles.drop} style={{ top, left, width }}>
+            {children}
+        </div>
+    )
 }

@@ -7,23 +7,19 @@ import { useDebounce } from "@/hooks/useDebounce";
 
 
 interface IFilterFormTextInput extends React.HTMLProps<HTMLInputElement> {
-
     extraClass?: string,
-    ref?: RefObject<HTMLInputElement>,
-    isDebounced?: boolean
+    debounceDelay?: number
 }
 
 
-export const FilterFormTextInput: FC<IFilterFormTextInput> = ({ id, label, extraClass, ref, isDebounced = false, onChange, ...props }) => {
+export const FilterFormTextInput = React.forwardRef<HTMLInputElement | null, IFilterFormTextInput>(({ id, label, extraClass, debounceDelay = 0, onChange, ...props }, ref) => {
 
-    const debouncedTyping = useDebounce(onChange, 300);
+    const debouncedTyping = useDebounce(onChange, debounceDelay);
 
     return (
         <div className={extraClass}>
             <label className={styles.label} htmlFor={label} >{label}<br /></label>
-            <input type='text' onChange={isDebounced ? debouncedTyping : onChange} className={styles.input} id={label} ref={ref} {...props} />
+            <input type='text' onChange={debounceDelay ? debouncedTyping : onChange} className={styles.input} id={label} ref={ref} {...props} ></input>
         </div>
     )
-
-
-}
+})

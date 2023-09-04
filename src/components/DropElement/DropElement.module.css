@@ -1,5 +1,5 @@
 .drop {
-    position: fixed;
+    position: absolute;
     background-color: var(--color-white);
     border: 1px solid #FFFFFF;
     box-shadow: 0px 10px 22px -4px rgba(27, 31, 35, 0.32);

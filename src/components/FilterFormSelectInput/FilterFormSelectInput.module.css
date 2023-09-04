@@ -1,25 +1,24 @@
-.label {
-    color: var(--color-black);
-    font-size: 14px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+.section {
     position: relative;
 }
 
-.input {
-    outline: none;
-    padding: 10px 16px;
-    border: 1px solid #E1E3E6;
-    border-radius: var(--border-radius);
-    margin-top: 4px;
-    width: 100%
+.toggleBtn {
+    position: absolute;
+    top: 33px;
+    right: 10px;
+    width: 26px;
+    background-color: var(--color-white);
+    transition: transform .05s;
 }
 
-.input:focus {
-    border: 1px solid #FF5500;
+.toggleBtn:hover {
+    opacity: unset;
 }
 
-.input::placeholder {
-    color: #999FA6;
+.toggleBtn:hover svg {
+    fill: var(--color-light-grey);
+}
+
+.toggleBtn_state_opened {
+    transform: rotate(3.142rad) translateY(3px);
 }
