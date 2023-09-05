@@ -3,6 +3,7 @@
 import { Accordion, CategoryName, CategoryDescription } from "@/components/Accordion/Accordion";
 
 import styles from './page.module.css'
+import { LayoutCommonBlock } from "@/components/LayoutCommonBlock/LayoutCommonBlock";
 
 
 export default function QnAPage({ params }: { params: { id: string } }) {
@@ -10,6 +11,9 @@ export default function QnAPage({ params }: { params: { id: string } }) {
 
     return (
         <div className={styles.section}>
+            <LayoutCommonBlock extraClass={styles.headingContainer}>
+                <h2>Вопросы-ответы</h2>
+            </LayoutCommonBlock>
             <Accordion>
                 <CategoryName heading='Что такое Билетопоиск?'>
                     <CategoryDescription text='Мы — крупнейший сервис о кино в рунете. На нем вы сможете посмотреть фильмы и сериалы, купить билеты в кино, узнать рейтинги популярных видео и интересные факты, поставить фильмам оценки, написать рецензии и дополнить описание фильмов.' />

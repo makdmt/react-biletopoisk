@@ -12,8 +12,11 @@ import type { IFilmDetails } from "@/services/types/data";
 
 import styles from './FilmListElement.module.css'
 import { LayoutCommonBlock } from "../LayoutCommonBlock/LayoutCommonBlock";
+import { CloseIcon } from "../Icons/CloseIcon";
 
-export const FilmListElement: FC<IFilmDetails & { isRenderInCart: boolean }> = ({ id, title, genre, posterUrl, isRenderInCart }) => {
+type TFilmListElement = Omit<IFilmDetails, 'releaseYear' | 'director' | 'description' | 'rating' | 'reviewIds'>
+
+export const FilmListElement: FC<TFilmListElement & { isRenderInCart: boolean }> = ({ id, title, genre, posterUrl, isRenderInCart }) => {
 
     const dispatch = useDispatch();
     const amount = useSelector((state) => selectItemAmount(state, id));
@@ -59,9 +62,9 @@ export const FilmListElement: FC<IFilmDetails & { isRenderInCart: boolean }> = (
                 </div>
                 <div className={styles.counterContainer}>
                     <Counter filmId={id} extraDecrementHandler={isRenderInCart ? decrementHandler : undefined} />
-                    {isRenderInCart && <button onClick={openModal}>delete</button>}
+                    {isRenderInCart && <button type='button' title='удалить фильм из корзины' onClick={openModal}><CloseIcon /></button>}
                 </div>
-                {modalOpened && <Modal closeByClickFunc={closeModalByClick} closeByEscFunc={closeModalByPressEsc} closeByXFunc={closeModalByClick} >
+                {modalOpened && <Modal closeByClickFunc={closeModalByClick} closeByEscFunc={closeModalByPressEsc}>
                     <ConfirmForm
                         heading="Удаление билета"
                         ask="Вы уверены, что хотите удалить билет?"

@@ -8,6 +8,7 @@ import { SideBar } from "@/components/SideBar/SideBar";
 import { FilterForm } from "@/components/FilterForm/FilterForm";
 
 import styles from './page.module.css'
+import { Loader } from "@/components/Loader/Loader";
 
 
 export default function Home() {
@@ -22,7 +23,7 @@ export default function Home() {
   const genreValue = searchParams.get('genre') || '';
   const nameValue = searchParams.get('name') || '';
 
-  const { data: filmsInCinimas } = useGetMoviesInCinimaQuery(cinimaIdforFilter);
+  const { data: filmsInCinimas, isFetching: isFilmsInCinimasLoading, isError: isFilmsInCinimasError } = useGetMoviesInCinimaQuery(cinimaIdforFilter);
 
   let filmsToRender = filmsInCinimas || films;
 
@@ -34,11 +35,10 @@ export default function Home() {
 
 
   if (isLoading || isCinimasLoading) {
-    return <main className={styles.section}>Loading...</main>
-
+    return <Loader />
   }
 
-  if (!films || isError || isCinimasError) {
+  if (!films || isError || isCinimasError || isFilmsInCinimasError) {
     return <main className={styles.section}>Произошла ошибка. Попробуйте перезагрузить страницу...</main>
   }
 
@@ -48,7 +48,9 @@ export default function Home() {
       <SideBar>
         <FilterForm />
       </SideBar>
-      <FilmsList films={filmsToRender} />
+      <div className={styles.mainContainBlock}>
+        {isFilmsInCinimasLoading ? <Loader /> : <FilmsList films={filmsToRender} />}
+      </div>
     </div>
   )
 }

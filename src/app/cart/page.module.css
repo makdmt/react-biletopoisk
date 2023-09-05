@@ -1,0 +1,29 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; почему не работает?*/
+    min-height: inherit;
+}
+
+.section .ttlContainer {
+    margin-top: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.priceInfo {
+    font-size: var(--h2-desktop-fontsize);
+}
+
+@media (max-width: 970px) {
+    .priceInfo {
+        font-size: var(--h2-tablet-fontsize);
+    }
+}
+
+@media (max-width: 670px) {
+    .priceInfo {
+        font-size: var(--h2-mobile-fontsize);
+    }
+}

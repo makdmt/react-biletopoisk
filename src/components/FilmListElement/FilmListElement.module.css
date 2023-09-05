@@ -1,4 +1,4 @@
-.section {
+li .section {
     flex-direction: row;
     gap: 24px;
 }
@@ -32,6 +32,9 @@
 
 .counterContainer {
     margin-left: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px
 }
 
 
@@ -55,5 +58,9 @@
 @media (max-width: 670px) {
     .heading {
         font-size: var(--h2-mobile-fontsize);
+    }
+
+    .counterContainer {
+        gap: 8px;
     }
 }
