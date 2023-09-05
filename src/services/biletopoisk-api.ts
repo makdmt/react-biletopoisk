@@ -7,11 +7,11 @@ export const biletopoiskApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api/' }),
     endpoints: (builder) => ({
       getMovies: builder.query<IFilmDetails[], void>({ query: () => 'movies'}),
-      getMovie: builder.query<IFilmDetails, void>({ query: (movieId) => `movie?movieId=${movieId}`}),
+      getMovie: builder.query<IFilmDetails, string>({ query: (movieId) => `movie?movieId=${movieId}`}),
       getCinimas: builder.query<ICinima[], void>({ query: () => 'cinemas'}),
-      getMoviesInCinima: builder.query<IFilmDetails[], void>({ query: (cinimaId) => `movies?cinemaId=${cinimaId}`}),
+      getMoviesInCinima: builder.query<IFilmDetails[], string>({ query: (cinimaId) => `movies?cinemaId=${cinimaId}`}),
       getReviews: builder.query<IFilmReview[], void>({ query: () => 'reviews'}),
-      getMovieReviews: builder.query<IFilmReview[], void>({ query: (movieId) => `reviews?movieId=${movieId}`}),
+      getMovieReviews: builder.query<IFilmReview[], string>({ query: (movieId) => `reviews?movieId=${movieId}`}),
     }) 
 })
 

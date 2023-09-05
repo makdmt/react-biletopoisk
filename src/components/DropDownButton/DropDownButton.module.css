@@ -1,0 +1,15 @@
+.toggleBtn {
+  transition: transform .05s;
+}
+
+.toggleBtn:hover {
+  opacity: unset;
+}
+
+.toggleBtn:hover svg {
+  fill: var(--color-light-grey);
+}
+
+.toggleBtn_state_opened {
+  transform: rotate(3.142rad) translateY(3px);
+}

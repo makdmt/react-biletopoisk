@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { cartSlice } from './features/cart/index';
-import { componentsVisibilityReducer } from './features/componentsVisibility/index'
 import { biletopoiskApi } from "@/services/biletopoisk-api";
 
 

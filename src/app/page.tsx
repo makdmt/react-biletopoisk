@@ -4,55 +4,51 @@ import { useGetMoviesQuery, useGetCinimasQuery, useGetMoviesInCinimaQuery } from
 import { useSearchParams } from "next/navigation";
 
 import { FilmsList } from "@/components/FilmsList/FilmsList"
-import type { IFilmDetails } from "@/services/types/data";
+import { SideBar } from "@/components/SideBar/SideBar";
 import { FilterForm } from "@/components/FilterForm/FilterForm";
-import { CloseButton } from "@/components/CloseButton/CloseButton";
 
 import styles from './page.module.css'
-import { SideBar } from "@/components/SideBar/SideBar";
-import { LayoutCommonBlock } from "@/components/LayoutCommonBlock/LayoutCommonBlock";
+
 
 export default function Home() {
 
   const { data: films, isLoading, isError } = useGetMoviesQuery();
+  const { data: cinimas, isLoading: isCinimasLoading, isError: isCinimasError } = useGetCinimasQuery();
 
+
+  //Рендерим фильмы исходя из query параметров фильтров
   const searchParams = useSearchParams();
-
-
   const cinimaIdforFilter = searchParams.get('cinima') || '';
-  const genreforFilter = searchParams.get('genre') || '';
-  const nameforFilter = searchParams.get('name') || '';
+  const genreValue = searchParams.get('genre') || '';
+  const nameValue = searchParams.get('name') || '';
 
   const { data: filmsInCinimas } = useGetMoviesInCinimaQuery(cinimaIdforFilter);
 
-  let filmsToRender: Array<IFilmDetails> = filmsInCinimas?.length > 0 ? filmsInCinimas : films;
+  let filmsToRender = filmsInCinimas || films;
 
-  if (!!genreforFilter) filmsToRender = filmsToRender?.filter((film: IFilmDetails) => film.genre === genreforFilter);
-  if (!!nameforFilter) filmsToRender = filmsToRender?.filter((film: IFilmDetails) => {
-    const namePart = film.title.substring(0, nameforFilter.length);
-    console.log(namePart);
-    return namePart.toLowerCase() === nameforFilter.toLowerCase();
+  if (!!genreValue) filmsToRender = filmsToRender?.filter((film) => film.genre === genreValue);
+  if (!!nameValue) filmsToRender = filmsToRender?.filter((film) => {
+    const wordsInFilmTitle = film.title.split(' ');
+    return wordsInFilmTitle.some(word => word.substring(0, nameValue.length).toLowerCase() === nameValue.toLowerCase())
   });
 
 
-
-
-  if (isLoading) {
+  if (isLoading || isCinimasLoading) {
     return <main className={styles.section}>Loading...</main>
 
   }
 
-  if (!films || films.length === 0 || isError) {
+  if (!films || isError || isCinimasError) {
     return <main className={styles.section}>Произошла ошибка. Попробуйте перезагрузить страницу...</main>
   }
 
 
-  return (
-    <main className={styles.section}>
+  if (filmsToRender) return (
+    <div className={styles.section}>
       <SideBar>
         <FilterForm />
       </SideBar>
       <FilmsList films={filmsToRender} />
-    </main>
+    </div>
   )
 }

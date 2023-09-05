@@ -1,0 +1,18 @@
+.section {
+    min-height: calc(100lvh - 87px - 70px);
+    padding: var(--default-desktop-paddings);
+}
+
+@media (max-width: 970px) {
+    .section {
+        min-height: calc(100lvh - 60px - 55px);
+        padding: var(--default-tablet-paddings);
+}
+}
+
+@media (max-width: 550px) {
+    .section {
+        min-height: calc(100lvh - 40px - 35px);
+        padding: var(--default-mobile-paddings);
+    }
+}

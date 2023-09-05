@@ -60,7 +60,10 @@ li {
   --default-desktop-paddings: 24px 32px;
   --default-tablet-paddings: 16px 18px;
   --default-mobile-paddings: 8px 12px;
+
   --border-radius: 8px;
+  --hover-opacity: .6;
+  --transition-animation: .3s ease-in;
 
   --h2-desktop-fontsize: 20px;
   --h2-tablet-fontsize: 18px;

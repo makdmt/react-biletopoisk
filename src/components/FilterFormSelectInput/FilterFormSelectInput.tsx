@@ -13,6 +13,7 @@ import { FilterFormSelectInputOptionList } from "../FilterFormSelectInputOptionL
 import type { TFilters, IFilterCategoryOptions } from "@/services/types/data";
 
 import styles from './FilterFormSelectInput.module.css'
+import { DropDownButton } from "../DropDownButton/DropDownButton";
 
 
 interface IFilterFormSelectInput {
@@ -108,7 +109,7 @@ export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, o
     return (
         <div className={`${styles.section} ${extraClass}`}>
             <FilterFormTextInput id={label} label={label} ref={relativeElement} placeholder={selectedOptionName ? selectedOptionName : placeholder} onFocus={dropDownOnFocusHandler} onBlur={dropDownOnBlurHandler} onChange={onChange} debounceDelay={0} />
-            <button type='button' title={openedDrop === id ? 'скрыть опции' : 'показать опции'} className={`${styles.toggleBtn} ${openedDrop === id ? styles.toggleBtn_state_opened : ''}`} onClick={dropDownToggleBtnHandler}><DropDownIcon /></button>
+            <DropDownButton isDropOpened={openedDrop === id} onClick={dropDownToggleBtnHandler} extraClass={styles.toggleBtn} />
             {openedDrop === id && relativeElement.current && options.length > 0 && <DropElement top={height + 25} left={0} width={width}>
                 <FilterFormSelectInputOptionList categoryName={id} options={optionsToRender} setSelectedOption={selectOption} />
             </DropElement>}

@@ -1,3 +1,45 @@
-.heading {
+.categoryNameBlock {
     cursor: pointer;
+}
+
+.categoryNameBlock:hover .heading {
+    opacity: .7;
+}
+
+.categoryHeadingContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.heading {
+    font-size: var(--h2-desktop-fontsize);
+    transition: all var(--transition-animation);
+}
+
+
+.descriptionBlock {
+    margin-top: 16px;
+}
+
+@media (max-width: 970px) {
+    .heading {
+        font-size: var(--h2-tablet-fontsize);
+    }
+
+    .descriptionBlock {
+        margin-top: 12px;
+    }
+}
+
+
+@media (max-width: 670px) {
+    .heading {
+        font-size: var(--h2-mobile-fontsize);
+    }
+
+    .descriptionBlock {
+        margin-top: 8px;
+        font-size: 14px;
+    }
 }

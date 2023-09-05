@@ -6,6 +6,7 @@ import { StoreProvider } from '@/redux/StoreProvider'
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
 
+import styles from './layout.module.css'
 import './globals.css'
 import { Roboto } from 'next/font/google'
 const roboto = Roboto({
@@ -64,7 +65,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <StoreProvider>
           <LayoutContext.Provider value={{ isPageWithSideBar, setPageWithSideBar, isSideBarStateVisible, showSideBar, hideSideBar, toggleSideBar }}>
             <Header />
+            <main className={styles.section}>
             {children}
+            </main>
             <Footer />
           </LayoutContext.Provider>
         </StoreProvider>

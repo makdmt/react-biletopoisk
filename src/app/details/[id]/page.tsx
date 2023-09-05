@@ -10,10 +10,6 @@ export default function FilmDetailsPage({ params }: { params: { id: string } }) 
     const { data: filmDetails, isLoading, isError } = useGetMovieQuery(params.id);
     const { data: filmReviews, isLoading: isLoding } = useGetMovieReviewsQuery(params.id);
 
-    console.log(filmDetails);
-    console.log(filmReviews);
-
-    console.log(`filmReviews ${filmReviews}`)
 
     if (isLoading || isLoding) {
         return <span>Loading...</span>

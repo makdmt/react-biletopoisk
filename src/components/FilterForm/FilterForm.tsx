@@ -54,7 +54,7 @@ export const FilterForm: FC = () => {
     const genreFilterLabel = filterLabels.genre;
 
     const genreFilterOptions: Array<IFilterCategoryOptions | undefined> = React.useMemo(() => {
-        const genreFilterOptions = [{ optionNameInApi: '', optionNameInUi: 'Не выбрано' }];
+        const genreFilterOptions = [{ optionNameInApi: '', optionNameInUi: 'Все жанры' }];
         for (let key in genres) {
             genreFilterOptions.push({ optionNameInApi: key, optionNameInUi: (genres as any)[key] })
         }
@@ -67,7 +67,7 @@ export const FilterForm: FC = () => {
 
     const { data: cinimas } = useGetCinimasQuery();
     const cinimaFilterOptions: Array<IFilterCategoryOptions | undefined> = React.useMemo(() => {
-        const cinimaFilterOptions = [{ optionNameInApi: '', optionNameInUi: 'Не выбрано' }];
+        const cinimaFilterOptions = [{ optionNameInApi: '', optionNameInUi: 'Все кинотеатры' }];
         !!cinimas && cinimas.forEach(cinima => {
             cinimaFilterOptions.push({ optionNameInApi: cinima.id, optionNameInUi: cinima.name })
         });
