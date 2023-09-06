@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, RefObject } from "react";
+import React from "react";
 
 import styles from './FilterFormTextInput.module.css'
 import { useDebounce } from "@/hooks/useDebounce";
@@ -12,7 +12,7 @@ interface IFilterFormTextInput extends React.HTMLProps<HTMLInputElement> {
 }
 
 
-export const FilterFormTextInput = React.forwardRef<HTMLInputElement | null, IFilterFormTextInput>(({ id, label, extraClass, debounceDelay = 0, onChange, ...props }, ref) => {
+const FilterFormTextInput = React.forwardRef<HTMLInputElement | null, IFilterFormTextInput>(({ id, label, extraClass, debounceDelay = 0, onChange, ...props }, ref) => {
 
     const debouncedTyping = useDebounce(onChange, debounceDelay);
 
@@ -23,3 +23,6 @@ export const FilterFormTextInput = React.forwardRef<HTMLInputElement | null, IFi
         </div>
     )
 })
+
+FilterFormTextInput.displayName = 'FilterFormTextInput';
+export { FilterFormTextInput };

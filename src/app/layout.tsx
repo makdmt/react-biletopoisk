@@ -15,11 +15,6 @@ const roboto = Roboto({
   display: 'swap',
 })
 
-export const metadata = {
-  title: 'Учебный проект "Билетопоиск"',
-  description: 'First project with Next.js. Yandex summer School 2023 homework to React lessons',
-}
-
 
 //используем контекст для управления отображением sideBar на странице
 interface ISideBarVisibilityState {
@@ -61,6 +56,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="ru" className={roboto.className}>
+      <head>
+        <title>Билетопоиск</title>
+        <meta name='Учебный проект "Билетопоиск' content='First project with Next.js. Yandex summer School 2023 homework to React lessons' />
+      </head>
       <body id={'root'}>
         <StoreProvider>
           <LayoutContext.Provider value={{ isPageWithSideBar, setPageWithSideBar, isSideBarStateVisible, showSideBar, hideSideBar, toggleSideBar }}>
