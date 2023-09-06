@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Учебный проект: Билетопоиск на Next.js
+Второй проект на React.
+Цель проекта: закрепить навыки разработки на React, познакомиться с фреймворком Next.js<br>
+На главной странице проекта отображается список фильмов и форма с фильтрами. Выбранные фильмы можно добавить в корзину. Кликнув по фильму, можно посмотреть детальную информацию и отзывы зрителей. Рендеринг страниц "О нас" и "Вопросы-ответы" осуществляется на стороне сервера.
 
-## Getting Started
 
-First, run the development server:
+**Освоенные технологии и навыки:**
+- React / App Router / React Context / React createPortal
+- Redux Toolkit / RTK Query
+- Технологии оптимизации: debounce на input, ленивая загрузка картинок вне viewport, доступ к хранилищу по селекторам.
 
-```bash
+Посмотреть web-страницу на gitHub Pages: https://makdmt.github.io/react-burger/
+
+## Как собрать и запустить код
+
+```sh
+# установите зависимости
+npm i
+
+# запустите бекенд
+npm run api
+
+# запустите сервер в dev режиме
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
+После этого приложение можно открыть в браузере по адресу http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Планы по доработке:
+Настроить accessibility.
