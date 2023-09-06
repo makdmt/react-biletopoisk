@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetMoviesQuery } from "@/services/biletopoisk-api";
-import { useDispatch, useSelector } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCartModule } from "@/redux/features/cart/selector";
 
 import { FilmsList } from "@/components/FilmsList/FilmsList";
