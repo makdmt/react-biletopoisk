@@ -1,0 +1,11 @@
+.section {
+    position: relative;
+}
+
+.toggleBtn {
+    position: absolute;
+    top: 33px;
+    right: 10px;
+    width: 26px;
+    background-color: var(--color-white);
+}

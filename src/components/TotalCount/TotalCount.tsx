@@ -4,15 +4,17 @@ import React, { FC } from "react";
 
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { selectCartModule } from "@/redux/features/cart/selector";
-import { cartActions } from "@/redux/features/cart";
 
 import { CartIcon } from "../Icons/CartIcon";
 
 import Link from "next/link";
 
 import styles from './TotalCount.module.css'
+import { usePathname } from 'next/navigation'
 
 export const TotalCount: FC = () => {
+
+    const pathname = usePathname();
 
     const cart = useSelector((state) => selectCartModule(state));
 
@@ -22,19 +24,10 @@ export const TotalCount: FC = () => {
         total += cart[item];
     }
 
-
     return (
-        <Link href="/cart" className={styles.cartElement}>
-
+        <Link href="/cart" className={`${styles.cartElement} ${pathname === '/cart' ? styles.cartElement_active : ''}`}>
             <p className={styles.squareBack}>{total}</p>
             <CartIcon />
         </Link>
-
-
-        // <div className={styles.section}>
-
-
-        //     <Link href="/cart"></Link>
-        // </div>
     )
 }

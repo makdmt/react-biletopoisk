@@ -1,14 +1,22 @@
-
 import React, { FC, useContext } from "react"
+
+import { LayoutCommonBlock } from "../LayoutCommonBlock/LayoutCommonBlock"
+import { DropDownButton } from "../DropDownButton/DropDownButton"
 
 import styles from './Accordion.module.css'
 
-const AccordionContext = React.createContext(false)
+interface IAccordionContext {
+    activeCategory: string | undefined,
+    switchCategory: Function
+}
 
-const Accordion: any = ({ children }) => {
-    const [activeCategory, setActiveCategory] = React.useState();
 
-    const switchCategory = React.useCallback((category) => {
+const AccordionContext = React.createContext<IAccordionContext>({ activeCategory: undefined, switchCategory: () => { } })
+
+export const Accordion: FC<{ children: React.ReactElement | React.ReactElement[] }> = ({ children }) => {
+    const [activeCategory, setActiveCategory] = React.useState<string | undefined>();
+
+    const switchCategory = React.useCallback((category: string | undefined) => {
         setActiveCategory(active => active === category ? undefined : category)
     }, [])
 
@@ -20,49 +28,26 @@ const Accordion: any = ({ children }) => {
 
 }
 
-Accordion.CategoryName = function CategoryName({ children, heading }) {
+
+export const CategoryName: FC<{ children: React.ReactElement | React.ReactElement[], heading: string }> = function CategoryName({ children, heading }) {
 
     const { activeCategory, switchCategory } = useContext(AccordionContext);
 
     return (
-        <div>
-            <h2 className={styles.heading} onClick={() => switchCategory(heading)}>{heading}</h2>
-            {activeCategory === heading && <div>
-                {children}
+        <LayoutCommonBlock extraClass={styles.categoryNameBlock} onClick={() => switchCategory(heading)}>
+            <div className={styles.categoryHeadingContainer} ><h2 className={styles.heading}>{heading}</h2>
+            <DropDownButton isDropOpened={activeCategory === heading}/>
             </div>
-            }
-        </div>
+            {activeCategory === heading && <>{children}</>}
+        </LayoutCommonBlock>
 
     )
 };
 
 
-Accordion.CategoryDescription = function CategoryDescription({ children, text }) {
+export const CategoryDescription: FC<{ text: string }> = function CategoryDescription({ text }) {
 
     return (
-        <p>{text}</p>
+        <p className={styles.descriptionBlock}>{text}</p>
     )
 };
-
-
-export const QnAAccordion = () => {
-
-    return (
-        <div>
-            <Accordion>
-                <Accordion.CategoryName heading='Что такое Билетопоиск?'>
-                    <Accordion.CategoryDescription text='Мы — крупнейший сервис о кино в рунете. На нем вы сможете посмотреть фильмы и сериалы, купить билеты в кино, узнать рейтинги популярных видео и интересные факты, поставить фильмам оценки, написать рецензии и дополнить описание фильмов.' />
-                </Accordion.CategoryName>
-                <Accordion.CategoryName heading='Какой компании принадлежит Билетопоиск?'>
-                    <Accordion.CategoryDescription text='Компании хороших людей' />
-                </Accordion.CategoryName>
-                <Accordion.CategoryName heading='Как купить билет на Билетопоиск?'>
-                    <Accordion.CategoryDescription text='За деньги' />
-                </Accordion.CategoryName>
-                <Accordion.CategoryName heading='Как оставить отзыв на Билетопоиск?'>
-                    <Accordion.CategoryDescription text='Напишите письмо директору' />
-                </Accordion.CategoryName>
-            </Accordion>
-        </div>
-    )
-} 

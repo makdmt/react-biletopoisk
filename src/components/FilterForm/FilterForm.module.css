@@ -1,11 +1,9 @@
 .section {
-    flex-basis: 360px;
-    height: 100vh;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    padding: 24px;
+    height: 500px;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     gap: 16px;
 }
 
@@ -14,4 +12,16 @@
     line-height: 20px;
     font-weight: 700;
     margin-bottom: 4px;
+}
+
+.mobileBtn {
+    margin-top: 16px;
+    width: 100%;
+}
+
+@media (max-width: 970px) {
+    .section {
+        height: 524px;
+    }
+
 }

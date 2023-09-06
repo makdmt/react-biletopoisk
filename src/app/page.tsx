@@ -4,55 +4,55 @@ import { useGetMoviesQuery, useGetCinimasQuery, useGetMoviesInCinimaQuery } from
 import { useSearchParams } from "next/navigation";
 
 import { FilmsList } from "@/components/FilmsList/FilmsList"
-import type { IFilmDetails } from "@/services/types/data";
+import { SideBar } from "@/components/SideBar/SideBar";
 import { FilterForm } from "@/components/FilterForm/FilterForm";
 
 import styles from './page.module.css'
+import { Loader } from "@/components/Loader/Loader";
+import { NoticeMsg } from "@/components/NoticeMsg/NoticeMsg";
+
 
 export default function Home() {
 
-  const { data: films, isLoading, isError }: { data: Array<IFilmDetails>, isLoading: boolean, isError: boolean } = useGetMoviesQuery();
-  const { data: cinimas } = useGetCinimasQuery();
+  const { data: films, isLoading, isError } = useGetMoviesQuery();
+  const { data: cinimas, isLoading: isCinimasLoading, isError: isCinimasError } = useGetCinimasQuery();
 
+
+  //Рендерим фильмы исходя из query параметров фильтров
   const searchParams = useSearchParams();
-
-
-  // console.log(params.filterParams);
-  // console.log(cinimas);
-
   const cinimaIdforFilter = searchParams.get('cinima') || '';
-  const genreforFilter = searchParams.get('genre') || '';
-  const nameforFilter = searchParams.get('name') || '';
+  const genreValue = searchParams.get('genre') || '';
+  const nameValue = searchParams.get('name') || '';
 
-  const { data: filmsInCinimas } = useGetMoviesInCinimaQuery(cinimaIdforFilter);
+  const { data: filmsInCinimas, isFetching: isFilmsInCinimasLoading, isError: isFilmsInCinimasError } = useGetMoviesInCinimaQuery(cinimaIdforFilter);
 
-  let filmsToRender: Array<IFilmDetails> = filmsInCinimas?.length > 0 ? filmsInCinimas : films;
+  let filmsToRender = filmsInCinimas || films;
 
-  // if (cinimaIdforFilter.length > 0) filmsToRender.concat(filmsInCinimas)
-  if (!!genreforFilter) filmsToRender = filmsToRender?.filter((film: IFilmDetails) => film.genre === genreforFilter);
-  if (!!nameforFilter) filmsToRender = filmsToRender?.filter((film: IFilmDetails) => {
-    const namePart = film.title.substring(0, nameforFilter.length);
-    console.log(namePart);
-    return namePart.toLowerCase() === nameforFilter.toLowerCase();
+  if (!!genreValue) filmsToRender = filmsToRender?.filter((film) => film.genre === genreValue);
+  if (!!nameValue) filmsToRender = filmsToRender?.filter((film) => {
+    const wordsInFilmTitle = film.title.split(' ');
+    return wordsInFilmTitle.some(word => word.substring(0, nameValue.length).toLowerCase() === nameValue.toLowerCase())
   });
 
 
-
-
-  if (isLoading) {
-    return <span>Loading...</span>
-
+  if (isLoading || isCinimasLoading) {
+    return <Loader />
   }
 
-  if (!films || films.length === 0 || isError) {
-    return <span>Not Found</span>
+  if (!films || isError || isCinimasError) {
+    return <NoticeMsg warningMsg="Произошла ошибка" advice="Попробуйте перезагрузить страницу..." />
   }
 
 
-  return (
-    <section className={styles.section}>
-      <FilterForm />
-      <FilmsList films={filmsToRender} />
-    </section>
+  if (filmsToRender) return (
+    <div className={styles.section}>
+      <SideBar>
+        <FilterForm />
+      </SideBar>
+      <div className={styles.mainContainBlock}>
+        {filmsToRender.length === 0 && <NoticeMsg warningMsg="Совпадения не найдены" advice="Попробуйте изменить параметры фильтров" />}
+        {isFilmsInCinimasLoading ? <Loader /> : <FilmsList films={filmsToRender} />}
+      </div>
+    </div>
   )
 }

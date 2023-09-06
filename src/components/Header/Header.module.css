@@ -1,29 +1,70 @@
 .section {
+    position: sticky;
+    top: 0;
     background-color: var(--color-grey);
-    padding: 24px 32px;
+    padding: var(--default-desktop-paddings);
     color: var(--color-white);
     display: flex;
     justify-content: space-between;
+    gap: 8px;
     align-items: center;
+    z-index: 3;
 }
 
 .heading {
     font-size: 32px;
     font-weight: 700;
     line-height: 38px;
+    padding-left: 22px;
 }
 
-.cartElement {
-    display: flex;
-    gap: 8px;
-}
+.leftButton {
+    margin-left: 0;
+    margin-right: auto;
 
-.squareBack {
-    width: 28px;
-    height: 28px;
-    background-color: var(--color-orange);
+    padding-top: 3px;
+    padding-bottom: 2px; 
+    padding-left: 5px;
+    padding-right: 5px;
     border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+.leftButton_active {
+    outline: 2px solid var(--color-orange);
+}
+
+@media (max-width: 970px) {
+    .section {
+        padding: var(--default-tablet-paddings);
+    }
+
+    .heading {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .leftButton svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
+@media (max-width: 550px) {
+    .section {
+        padding: var(--default-mobile-paddings);
+        justify-content: center;
+    }
+
+    .heading {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .leftButton svg {
+        width: 20px;
+        height: 20px;
+    }
 }

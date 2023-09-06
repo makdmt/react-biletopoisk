@@ -1,40 +1,37 @@
 import React, { FC, ReactPortal, ReactElement } from "react";
 import ReactDOM from 'react-dom'
 
+import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
+
 import styles from './Modal.module.css'
+import { CloseButton } from "../CloseButton/CloseButton";
 
 
 interface IModal {
-  closeByEscFunc?: (evt: React.KeyboardEvent) => void,
-  closeByClickFunc?: (evt: React.MouseEvent<HTMLElement>) => void,
-  closeByXFunc?: (evt: React.MouseEvent<HTMLButtonElement>) => void,
+  closeByEscFunc: (evt: KeyboardEvent) => void,
+  closeByClickFunc?: React.MouseEventHandler<HTMLElement>,
   children: ReactElement,
 }
 
-export const Modal = ({ closeByEscFunc, closeByClickFunc, closeByXFunc, children }: IModal): ReactPortal => {
-  const rootHtml = document.getElementById('root') as HTMLElement;
-  // const rootHtml = document.querySelector('.rt') as HTMLElement;
-
-
+export const Modal = ({ closeByEscFunc, closeByClickFunc, children }: IModal): ReactPortal => {
 
   React.useEffect(() => {
     document.addEventListener("keydown", closeByEscFunc);
     return () => document.removeEventListener("keydown", closeByEscFunc);
   }, [])
 
-  // return (
-  //   <span>нету</span>
-  // )
 
+  const rootHtml = document.getElementById('root') as HTMLElement;
 
   return ReactDOM.createPortal(
     (
-      <div className={styles.modalScreen} onClick={closeByClickFunc}>
+      <div className={styles.modalScreen} onClick={(evt) => { evt.stopPropagation(); }} >
+        <ModalOverlay onClick={closeByClickFunc} />
         <div className={styles.popupContainer} >
-          <button className={`${styles.closeBtn}`} onClick={closeByXFunc}></button>
+          <CloseButton type='button' onClick={closeByClickFunc} />
           {children}
         </div>
-      </div>
+      </div >
     )
     , rootHtml);
 }

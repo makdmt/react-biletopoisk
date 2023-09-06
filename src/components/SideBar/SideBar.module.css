@@ -1,0 +1,35 @@
+.section {
+    position: sticky;
+    top: 110px;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    z-index: 7;
+}
+
+@media (max-width: 970px) {
+    .section {
+        top: 76px;
+    }
+
+    .section_active {
+        transform: translateX(100vw);
+    }
+}
+
+
+@media (max-width: 550px) {
+    .section {
+        position: fixed;
+        width: 250px;
+        left: -100vw;
+        top: 48px;
+        transition: transform .4s ease-out;
+        box-shadow: -5px 0 12px 4px rgba(27, 21, 25, 0.12);
+    }
+
+    .section_active {
+        left: -250px;
+    }
+}

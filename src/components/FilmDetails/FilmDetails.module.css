@@ -1,47 +1,174 @@
-.section {
-    padding: 24px;
-    display: flex;
-    gap: 24px;
-    color: #1b1f23;
-    /* background-color: var(--color-beige); */
-    border-radius: 8px;
-    margin-bottom: 16px;
-
+section .filmInfoSection {
+    display: grid;
+    column-gap: var(--horizont-desktop-interval);
+    row-gap: var(--vertical-desktop-interval);
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: min-content min-content min-content;
 }
 
-.filmInfoSection {
-    display: grid;
-    column-gap: 32px;
-    grid-template-columns: 400px 1fr;
-    grid-template-rows: min-content min-content min-content min-content min-content 1fr;
+.imgContainer {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    min-width: 320px;
+    cursor: pointer;
 }
 
 .image {
-    grid-column: 1;
-    grid-row: 1 / -1;
-
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
 }
 
-.textInfoContainer {
-
+.headingContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
 }
 
 .heading {
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 32px;
+    line-height: 1;
     font-weight: 700;
     margin: 0;
     padding: 0;
+}
+
+.filmDetailsList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: var(--h2-desktop-fontsize);
+    line-height: var(--h2-line-height);
+    font-weight: var(--h2-font-weight);
+    font-style: normal;
     margin-bottom: 8px;
 }
 
-.genreInfo {
-    font-size: 16px;
-    line-height: 20px;
+.filmDetailsList span {
     font-weight: 400;
-    font-style: italic;
-    margin: 0;
-    padding: 0;
+}
+
+.filmDescriptionBlock {
+    font-size: var(--p-desktop-fontsize);
+    line-height: var(--p-line-height);
+    font-weight: var(--p-font-weight);
+    font-style: normal;
+}
+
+.filmDescriptionBlock h2 {
+    font-size: var(--h2-desktop-fontsize);
+    font-weight: var(--h2-font-weight);
+    line-height: 1.6;
+    font-style: normal;
+    margin-bottom: 16px;
+}
+
+.imageInModal {
+    max-width: 60vw;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+@media (max-width: 1560px) {
+    section .filmInfoSection {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+@media (max-width: 970px) {
+    section .filmInfoSection {
+        grid-template-columns: 1fr 1fr;
+        column-gap: var(--horizont-tablet-interval);
+        row-gap: var(--vertical-tablet-interval);
+    }
+
+    .heading {
+        font-size: 26px;
+    }
+
+    .filmDetailsList {
+        gap: 8px;
+        font-size: var(--h2-tablet-fontsize);
+        margin-bottom: 4px;
+    }
+
+    .filmDescriptionBlock h2 {
+        font-size: var(--h2-tablet-fontsize);
+        margin-bottom: 8px;
+    }
+
+    .filmDescriptionBlock p {
+        font-size: var(--p-tablet-fontsize);
+    }
+}
+
+@media (max-width: 670px) {
+    .heading {
+        font-size: 24px;
+    }
+
+    section .filmInfoSection {
+        grid-template-columns: min-content 1fr;
+        column-gap: var(--horizont-tablet-interval);
+        row-gap: var(--vertical-tablet-interval);
+    }
+
+    .headingContainer {
+        grid-row: 1;
+        grid-column: 1 / -1;
+    }
 
 
+    .imgContainer {
+        grid-row: 2;
+        min-width: unset;
+        max-height: 300px;
+    }
+
+    .image {
+        width: unset;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--border-radius);
+    }
+
+
+    .filmDetailsList {
+        gap: 6px;
+        font-size: var(--h2-mobile-fontsize);
+    }
+
+    .filmDescriptionBlock {
+        grid-column: 1 / -1;
+
+    }
+
+    .filmDescriptionBlock h2 {
+        font-size: var(--h2-mobile-fontsize);
+        margin-bottom: 6px;
+    }
+
+    .filmDescriptionBlock p {
+        font-size: var(--p-mobile-fontsize);
+    }
+}
+
+@media (max-width: 420px) {
+    section .filmInfoSection {
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content min-content min-content 1fr;
+    }
+
+    .imgContainer {
+        min-height: 250px;
+        max-height: 330px;
+    }
+
+    .image {
+        width: 100%;
+    }
+
+    .filmDescriptionBlock {
+        grid-row: 4;
+    }
 }

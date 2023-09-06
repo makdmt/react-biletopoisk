@@ -1,4 +1,25 @@
 .section {
     display: flex;
+    align-items: flex-start;
     gap: 23px;
+    position: relative;
+}
+
+.mainContainBlock {
+    position: relative;
+    flex-grow: 1;
+    min-height: 80vh;
+}
+
+
+@media (max-width: 970px) {
+    .section {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 550px) {
+    .section {
+        /* padding: var(--default-mobile-paddings); */
+    }
 }

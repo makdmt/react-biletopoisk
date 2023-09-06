@@ -1,0 +1,23 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.headingContainer {
+    margin-bottom: 8px;
+
+}
+
+@media (max-width: 970px) {
+    .section {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 670px) {
+    .headingContainer {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+}

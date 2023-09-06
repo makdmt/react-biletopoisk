@@ -1,0 +1,17 @@
+.listElement {
+    padding: 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer; 
+}
+
+.listElement button {
+    text-align: left;
+}
+
+.listElement_highlighted {
+    background-color: var(--color-beige);
+}
+
+.listElement:hover {
+    background-color: var(--color-beige);
+}

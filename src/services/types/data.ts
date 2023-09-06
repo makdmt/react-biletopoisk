@@ -9,19 +9,26 @@ export interface IFilmDetails {
   readonly reviewIds: Array<string>,
   readonly posterUrl: string,
 }
-
 export interface ICinima {
   id: string,
   name: string,
   movieIds: Array<string>
 }
-
-export type TGenresInApi = 'fantasy' | 'horror' | 'action' | 'comedy';
-export type TFilterParams = 'name' | 'genre' | 'cinima';
-
 export interface IFilmReview {
   id: string,
   name: string,
   rating: number,
-  text: string
+  text: string,
+  avatarSrc?: string
+}
+
+
+export type TFilters = 'name' | 'genre' | 'cinima';
+export type TFilterLabelsInUI = 'Название' | 'Жанр' | 'Кинотеатр';
+export type TFilterGenresInApi = 'fantasy' | 'horror' | 'action' | 'comedy';
+export type TFilterGenresInUI = 'Фэнтези' | 'Ужасы' | 'Боевик' | 'Комедия';
+
+export interface IFilterCategoryOptions {
+  optionNameInApi: string,
+  optionNameInUi: string
 }
