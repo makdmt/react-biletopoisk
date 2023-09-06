@@ -4,6 +4,7 @@
   width: 100vw;
   top: 0;
   left: 0;
+  z-index: 5;
 
   display: flex;
   justify-content: center;
@@ -11,16 +12,16 @@
 }
 
 .popupContainer {
-  max-width: 40vw;
+  max-width: 60vw;
+  max-height: 80vh;
   position: relative;
-  z-index: 2;
-  background-color: var(--color-white);
-  border-radius: var(--border-radius);
+  z-index: 5;
   cursor: auto;
 }
 
 .closeBtn {
   position: absolute;
+  z-index: 1;
   top: 25px;
   right: 27px;
   width: 10px;

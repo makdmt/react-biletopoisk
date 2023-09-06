@@ -2,7 +2,6 @@ import React, { FC, ReactPortal, ReactElement } from "react";
 import ReactDOM from 'react-dom'
 
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
-import { LayoutCommonBlock } from "../LayoutCommonBlock/LayoutCommonBlock";
 
 import styles from './Modal.module.css'
 import { CloseButton } from "../CloseButton/CloseButton";
@@ -28,11 +27,11 @@ export const Modal = ({ closeByEscFunc, closeByClickFunc, children }: IModal): R
     (
       <div className={styles.modalScreen} onClick={(evt) => { evt.stopPropagation(); }} >
         <ModalOverlay onClick={closeByClickFunc} />
-        <LayoutCommonBlock extraClass={styles.popupContainer} >
+        <div className={styles.popupContainer} >
           <CloseButton type='button' onClick={closeByClickFunc} />
           {children}
-        </LayoutCommonBlock>
-      </div>
+        </div>
+      </div >
     )
     , rootHtml);
 }

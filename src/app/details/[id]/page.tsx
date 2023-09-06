@@ -5,6 +5,9 @@ import { useGetMovieQuery, useGetMovieReviewsQuery } from "@/services/biletopois
 import { Loader } from "@/components/Loader/Loader";
 import { FilmDetails } from "@/components/FilmDetails/FilmDetails";
 import { FilmReviewsList } from "@/components/FilmReviewsList/FilmReviewsList";
+import { NoticeMsg } from "@/components/NoticeMsg/NoticeMsg";
+
+import styles from './page.module.css'
 
 export default function FilmDetailsPage({ params }: { params: { id: string } }) {
     const { data: filmDetails, isLoading, isError } = useGetMovieQuery(params.id);
@@ -17,12 +20,12 @@ export default function FilmDetailsPage({ params }: { params: { id: string } }) 
 
 
     if (!filmDetails || isError) {
-        return <span>Not Found</span>
+        <NoticeMsg warningMsg="Произошла ошибка" advice="Попробуйте перезагрузить страницу..." />
     }
-    
 
-    if (filmReviews) return (
-        <div>
+
+    if (filmDetails && filmReviews) return (
+        <div className={styles.page}>
             <FilmDetails {...filmDetails} />
             <FilmReviewsList reviews={filmReviews} />
         </div>

@@ -6,7 +6,7 @@
   left: 0;
   background-color: rgba(0, 0, 0, .5);
   cursor: pointer;
-  z-index: 0;
+  z-index: 5;
   opacity: 1;
 }
 

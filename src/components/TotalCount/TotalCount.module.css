@@ -2,6 +2,12 @@
     margin-left: auto;
     display: flex;
     gap: 8px;
+    padding: 2px 3px;
+    border-radius: 8px;
+}
+
+.cartElement_active {
+    outline: 2px solid var(--color-orange);
 }
 
 .squareBack {

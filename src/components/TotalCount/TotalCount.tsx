@@ -10,8 +10,11 @@ import { CartIcon } from "../Icons/CartIcon";
 import Link from "next/link";
 
 import styles from './TotalCount.module.css'
+import { usePathname } from 'next/navigation'
 
 export const TotalCount: FC = () => {
+
+    const pathname = usePathname();
 
     const cart = useSelector((state) => selectCartModule(state));
 
@@ -22,7 +25,7 @@ export const TotalCount: FC = () => {
     }
 
     return (
-        <Link href="/cart" className={styles.cartElement}>
+        <Link href="/cart" className={`${styles.cartElement} ${pathname === '/cart' ? styles.cartElement_active : ''}`}>
             <p className={styles.squareBack}>{total}</p>
             <CartIcon />
         </Link>

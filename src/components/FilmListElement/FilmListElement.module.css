@@ -1,3 +1,11 @@
+.container {
+    cursor: pointer;
+}
+
+.container:hover .heading {
+    opacity: var(--hover-opacity)
+}
+
 li .section {
     flex-direction: row;
     gap: 24px;
@@ -19,6 +27,7 @@ li .section {
     margin: 0;
     padding: 0;
     margin-bottom: 8px;
+    transition: opacity var(--transition-animation);
 }
 
 .genreInfo {

@@ -2,35 +2,65 @@
 
 import React, { FC } from "react";
 
+import Image from "next/image";
+
+import { LayoutCommonBlock } from "../LayoutCommonBlock/LayoutCommonBlock";
 import { Counter } from "../Counter/Counter";
-import type { IImovieDetails } from "@/services/types/data";
+import { Modal } from "../Modal/Modal";
+
+import type { IFilmDetails } from "@/services/types/data";
 
 import styles from './FilmDetails.module.css'
 
-export const FilmDetails: FC<IImovieDetails> = ({ id, title, genre, posterUrl, releaseYear, rating, director, description }) => {
+
+export const FilmDetails: FC<IFilmDetails> = ({ id, title, genre, posterUrl, releaseYear, rating, director, description }) => {
+
+    const [modalOpened, setmodalOpened] = React.useState<boolean>(false);
+
+
+    const openModal = (evt: React.MouseEvent<HTMLElement>) => {
+        evt.stopPropagation();
+        setmodalOpened(true);
+    }
+
+    const closeModalByClick = React.useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
+        evt.stopPropagation();
+        setmodalOpened(false);
+    }, []);
+
+    const closeModalByPressEsc = React.useCallback((evt: KeyboardEvent) => {
+        evt.stopPropagation();
+        evt.key === 'Escape' && setmodalOpened(false);
+    }, [])
+
+
 
     return (
-        <div>
-            <section className={styles.filmInfoSection}>
-                <img className={styles.image} src={posterUrl} alt={title} />
-                <div className={styles.flexLine}>
+        <section>
+            <LayoutCommonBlock>
+                <div className={styles.filmInfoSection}>
+                <div className={styles.imgContainer} onClick={openModal}>
+                    <Image src={posterUrl} alt={title} width={400} height={500} loading='lazy' className={styles.image} />
+                </div>
+                <div className={styles.headingContainer}>
                     <h2 className={styles.heading}>{title}</h2>
                     <Counter filmId={id} />
                 </div>
-                <ul>
-                <li className=''>Жанр: <span>{genre}</span></li>
-                <li className="">Год выпуска: <span>{releaseYear}</span></li>
-                <li className="">Рейтинг:  <span></span>{rating}</li>
-                <li className="">Режиссер: <span></span>{director}</li>
+                <ul className={styles.filmDetailsList} >
+                    <li>Жанр: <span>{genre}</span></li>
+                    <li>Год выпуска: <span>{releaseYear}</span></li>
+                    <li>Рейтинг:  <span>{rating}</span></li>
+                    <li>Режиссер: <span>{director}</span></li>
                 </ul>
-                <div className={styles.descriptionContainer}>
-                    <p className="">Описание</p>
-                    <p className="">{description}</p>
+                <div className={styles.filmDescriptionBlock}>
+                    <h2 className={styles.filmDescriptionBlock__heading}>Описание</h2>
+                    <p className={styles.filmDescriptionBlock__text}>{description}</p>
                 </div>
-            </section>
-            <section>
-                <h2>Отзывы</h2>
-            </section>
-        </div>
+                </div>
+            </LayoutCommonBlock>
+            {modalOpened && <Modal closeByClickFunc={closeModalByClick} closeByEscFunc={closeModalByPressEsc}>
+                <Image src={posterUrl} alt={title} width={400} height={500} loading='lazy' className={styles.imageInModal} />
+            </Modal>}
+        </section>
     )
 }

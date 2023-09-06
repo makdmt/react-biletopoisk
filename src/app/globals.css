@@ -57,6 +57,14 @@ li {
   --color-black: #000000;
   --color-orange: #FF5500;
 
+  --vertical-desktop-interval: 24px;
+  --vertical-tablet-interval: 16px;
+  --vertical-mobile-interval: 8px;
+
+  --horizont-desktop-interval: 32px;
+  --horizont-tablet-interval: 18px;
+  --horizont-mobile-interval: 12px;
+
   --default-desktop-paddings: 24px 32px;
   --default-tablet-paddings: 16px 18px;
   --default-mobile-paddings: 8px 12px;
@@ -68,6 +76,15 @@ li {
   --h2-desktop-fontsize: 20px;
   --h2-tablet-fontsize: 18px;
   --h2-mobile-fontsize: 16px;
+  --h2-line-height: 1.2;
+  --h2-font-weight: 700;
+
+  --p-desktop-fontsize: 16px;
+  --p-tablet-fontsize: 14px;
+  --p-mobile-fontsize: 13px;
+  --p-line-height: 1.5;
+  --p-font-weight: 400;
+
 }
 
 .no-scroll {

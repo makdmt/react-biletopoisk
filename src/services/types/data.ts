@@ -18,7 +18,8 @@ export interface IFilmReview {
   id: string,
   name: string,
   rating: number,
-  text: string
+  text: string,
+  avatarSrc?: string
 }
 
 
@@ -29,5 +30,5 @@ export type TFilterGenresInUI = 'Фэнтези' | 'Ужасы' | 'Боевик'
 
 export interface IFilterCategoryOptions {
   optionNameInApi: string,
-  optionNameInUi: string 
+  optionNameInUi: string
 }

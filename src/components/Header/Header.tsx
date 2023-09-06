@@ -26,13 +26,12 @@ export const Header: FC = () => {
         setMobile(isMobile());
     })
 
-    const { isPageWithSideBar, toggleSideBar } = React.useContext(LayoutContext);
-
+    const { isPageWithSideBar, toggleSideBar, isSideBarStateVisible } = React.useContext(LayoutContext);
 
 
     return (
         <header className={styles.section}>
-            {mobile && isPageWithSideBar && <button title='фильтры' onClick={() => toggleSideBar()} className={styles.leftButton}><FilterIcon /></button>}
+            {mobile && isPageWithSideBar && <button title='фильтры' onClick={() => toggleSideBar()} className={`${styles.leftButton} ${isSideBarStateVisible ? styles.leftButton_active : ''}`}><FilterIcon /></button>}
             {mobile && !isPageWithSideBar && <button title='назад' onClick={() => { router.back() }} className={styles.leftButton}><ArrowLeftIcon /></button>}
             <Link href="/" className={styles.heading}>Билетопоиск</Link>
             <TotalCount />

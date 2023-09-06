@@ -1,0 +1,18 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--vertical-desktop-interval)
+}
+
+
+@media (max-width: 970px) {
+    .page {
+        gap: var(--vertical-tablet-interval)
+    }
+}
+
+@media (max-width: 670px) {
+    .page {
+        gap: var(--vertical-mobile-interval)
+    }
+}

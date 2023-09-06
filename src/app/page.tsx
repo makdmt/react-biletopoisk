@@ -9,6 +9,7 @@ import { FilterForm } from "@/components/FilterForm/FilterForm";
 
 import styles from './page.module.css'
 import { Loader } from "@/components/Loader/Loader";
+import { NoticeMsg } from "@/components/NoticeMsg/NoticeMsg";
 
 
 export default function Home() {
@@ -38,8 +39,8 @@ export default function Home() {
     return <Loader />
   }
 
-  if (!films || isError || isCinimasError || isFilmsInCinimasError) {
-    return <main className={styles.section}>Произошла ошибка. Попробуйте перезагрузить страницу...</main>
+  if (!films || isError || isCinimasError) {
+    return <NoticeMsg warningMsg="Произошла ошибка" advice="Попробуйте перезагрузить страницу..." />
   }
 
 
@@ -49,6 +50,7 @@ export default function Home() {
         <FilterForm />
       </SideBar>
       <div className={styles.mainContainBlock}>
+        {filmsToRender.length === 0 && <NoticeMsg warningMsg="Совпадения не найдены" advice="Попробуйте изменить параметры фильтров" />}
         {isFilmsInCinimasLoading ? <Loader /> : <FilmsList films={filmsToRender} />}
       </div>
     </div>

@@ -1,38 +1,93 @@
 .section {
-    padding: 24px;
     display: flex;
-    gap: 24px;
-    color: #1b1f23;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    margin-bottom: 16px;
+    flex-direction: column;
+    gap: var(--vertical-desktop-interval);
+}
+
+li .reviewContainer {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: min-content 1fr;
+    column-gap: 24px;
+    row-gap: 16px;
 
 }
 
-.image {
-    flex-basis: 100px;
+.avatarContainer {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    aspect-ratio: 1 / 1;
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E0E0E0;
+    border-radius: var(--border-radius);
 }
 
-.textInfoContainer {
-
+.userNameContainer {
+    display: flex;
+    justify-content: space-between;
 }
 
-.heading {
-    font-size: 20px;
-    line-height: 20px;
-    font-weight: 700;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 8px;
+.userNameContainer h3 {
+    font-size: var(--h2-desktop-fontsize);
+    line-height: var(--h2-line-height);
+    font-weight: var(--h2-font-weight);
 }
 
-.genreInfo {
-    font-size: 16px;
-    line-height: 20px;
+.userNameContainer span {
     font-weight: 400;
-    font-style: italic;
-    margin: 0;
-    padding: 0;
+}
 
+.userNameContainer p {
+    font-size: var(--p-desktop-fontsize);
+    line-height: var(--p-line-height);
+    font-weight: var(--p-font-weight);
+}
 
+@media (max-width: 970px) {
+    .section {
+        gap: var(--vertical-tablet-interval);
+    }
+
+    li .reviewContainer {
+        grid-template-columns: 80px 1fr;
+        column-gap: var(--horizont-mobile-interval);
+        row-gap: var(--vertical-mobile-interval);
+    }
+
+    .avatarContainer {
+        min-width: 80px;
+    }
+
+    .userNameContainer h3 {
+        font-size: var(--h2-tablet-fontsize);
+    }
+
+    .reviewContainer p {
+        font-size: var(--p-tablet-fontsize);
+    }
+}
+
+@media (max-width: 670px) {
+    .section {
+        gap: var(--vertical-mobile-interval);
+    }
+
+    li .reviewContainer {
+        grid-template-columns: 60px 1fr;
+    }
+
+    .avatarContainer {
+        min-width: 60px;
+    }
+
+    .userNameContainer h3 {
+        font-size: var(--h2-mobile-fontsize);
+    }
+
+    .reviewContainer p {
+        font-size: var(--p-mobile-fontsize);
+    }
 }

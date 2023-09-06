@@ -9,6 +9,7 @@ import { LayoutCommonBlock } from "@/components/LayoutCommonBlock/LayoutCommonBl
 
 import styles from './page.module.css'
 import { Loader } from "@/components/Loader/Loader";
+import { NoticeMsg } from "@/components/NoticeMsg/NoticeMsg";
 
 
 export default function CartPage() {
@@ -33,11 +34,12 @@ export default function CartPage() {
     }
 
     if (!filmsToRender || isError) {
-        return <span>Not Found</span>
+        return <NoticeMsg warningMsg="Произошла ошибка" advice="Попробуйте перезагрузить страницу..." />
     }
 
     return (
         <div className={styles.section}>
+            {filmsToRender.length === 0 && <NoticeMsg warningMsg="Корзина пуста"></NoticeMsg>}
             {filmsToRender.length > 0 && <FilmsList films={filmsToRender} />}
             <LayoutCommonBlock extraClass={styles.ttlContainer}>
                 <h2 className={styles.priceInfo}>Итого билетов:</h2>

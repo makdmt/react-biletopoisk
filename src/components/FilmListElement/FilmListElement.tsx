@@ -13,6 +13,7 @@ import type { IFilmDetails } from "@/services/types/data";
 import styles from './FilmListElement.module.css'
 import { LayoutCommonBlock } from "../LayoutCommonBlock/LayoutCommonBlock";
 import { CloseIcon } from "../Icons/CloseIcon";
+import Link from "next/link";
 
 type TFilmListElement = Omit<IFilmDetails, 'releaseYear' | 'director' | 'description' | 'rating' | 'reviewIds'>
 

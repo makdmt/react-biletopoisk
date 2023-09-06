@@ -66,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <LayoutContext.Provider value={{ isPageWithSideBar, setPageWithSideBar, isSideBarStateVisible, showSideBar, hideSideBar, toggleSideBar }}>
             <Header />
             <main className={styles.section}>
-            {children}
+              {children}
             </main>
             <Footer />
           </LayoutContext.Provider>
