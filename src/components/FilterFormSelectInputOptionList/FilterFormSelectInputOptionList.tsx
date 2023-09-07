@@ -12,12 +12,11 @@ import styles from './FilterFormSelectInputOptionList.module.css'
 interface IFilterFormSelectInputOptionList {
     categoryName: Exclude<TFilters, 'name'>,
     options: Array<IFilterCategoryOptions | undefined>,
-    setSelectedOption: Function,
-    inputRef: HTMLInputElement
+    setSelectedOption: Function
 }
 
 
-export const FilterFormSelectInputOptionList: FC<IFilterFormSelectInputOptionList> = ({ options, setSelectedOption, inputRef }) => {
+export const FilterFormSelectInputOptionList: FC<IFilterFormSelectInputOptionList> = ({ options, setSelectedOption }) => {
 
     const { openedDrop, toggleDropdown } = React.useContext(FilterFormContext);
 
@@ -83,7 +82,6 @@ export const FilterFormSelectInputOptionList: FC<IFilterFormSelectInputOptionLis
         if (evt.key === 'Enter') {
             const option = options[indexOfHightlightedOption];
             option && setSelectedOption(option);
-            inputRef.value = '';
         }
     }, [options, indexOfHightlightedOption])
 
