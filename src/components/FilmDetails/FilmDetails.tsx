@@ -9,6 +9,7 @@ import { Counter } from "../Counter/Counter";
 import { Modal } from "../Modal/Modal";
 
 import type { IFilmDetails } from "@/services/types/data";
+import { genres } from "@/services/consts";
 
 import styles from './FilmDetails.module.css'
 
@@ -31,7 +32,9 @@ export const FilmDetails: FC<IFilmDetails> = ({ id, title, genre, posterUrl, rel
     const closeModalByPressEsc = React.useCallback((evt: KeyboardEvent) => {
         evt.stopPropagation();
         evt.key === 'Escape' && setmodalOpened(false);
-    }, [])
+    }, []);
+
+    const genreToRender: string = (genres as any)[genre];
 
 
 
@@ -47,7 +50,7 @@ export const FilmDetails: FC<IFilmDetails> = ({ id, title, genre, posterUrl, rel
                     <Counter filmId={id} />
                 </div>
                 <ul className={styles.filmDetailsList} >
-                    <li>Жанр: <span>{genre}</span></li>
+                    <li>Жанр: <span>{genreToRender}</span></li>
                     <li>Год выпуска: <span>{releaseYear}</span></li>
                     <li>Рейтинг:  <span>{rating}</span></li>
                     <li>Режиссер: <span>{director}</span></li>
@@ -59,7 +62,8 @@ export const FilmDetails: FC<IFilmDetails> = ({ id, title, genre, posterUrl, rel
                 </div>
             </LayoutCommonBlock>
             {modalOpened && <Modal closeByClickFunc={closeModalByClick} closeByEscFunc={closeModalByPressEsc}>
-                <Image src={posterUrl} alt={title} width={400} height={500} loading='lazy' className={styles.imageInModal} />
+                {/* <Image src={posterUrl} alt={title} width={400} height={500} loading='lazy' className={styles.imageInModal} /> */}
+                <img src={posterUrl} alt={title} loading='lazy' className={styles.imageInModal} />
             </Modal>}
         </section>
     )

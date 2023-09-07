@@ -61,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name='Учебный проект "Билетопоиск' content='First project with Next.js. Yandex summer School 2023 homework to React lessons' />
       </head>
       <body id={'root'}>
+      <div id={'modalRoot'} className={styles.modalRoot}></div>
         <StoreProvider>
           <LayoutContext.Provider value={{ isPageWithSideBar, setPageWithSideBar, isSideBarStateVisible, showSideBar, hideSideBar, toggleSideBar }}>
             <Header />

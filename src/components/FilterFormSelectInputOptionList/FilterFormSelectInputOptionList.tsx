@@ -12,11 +12,12 @@ import styles from './FilterFormSelectInputOptionList.module.css'
 interface IFilterFormSelectInputOptionList {
     categoryName: Exclude<TFilters, 'name'>,
     options: Array<IFilterCategoryOptions | undefined>,
-    setSelectedOption: Function
+    setSelectedOption: Function,
+    inputRef: HTMLInputElement
 }
 
 
-export const FilterFormSelectInputOptionList: FC<IFilterFormSelectInputOptionList> = ({ categoryName, options, setSelectedOption }) => {
+export const FilterFormSelectInputOptionList: FC<IFilterFormSelectInputOptionList> = ({ options, setSelectedOption, inputRef }) => {
 
     const { openedDrop, toggleDropdown } = React.useContext(FilterFormContext);
 
@@ -44,21 +45,12 @@ export const FilterFormSelectInputOptionList: FC<IFilterFormSelectInputOptionLis
         }
     }
 
-
-    // Хотел подставить эту функцию в коллбек итератора, но не работает...пробовал добавить асинкавейты, но все равно не сработало. Почему?
-    const hightLightOption = React.useCallback((index: number) => {
-        setIndexOfHightlightedOption(index);
-        // дождаться ререндера и проскроллить до выделенной опции
-    }, []);
-    // const optionsIteratorHandler = React.useMemo(() => optionsIterator(hightLightOption), [options, indexOfHightlightedOption])
-
-
     const optionsIteratorHandler = React.useMemo(() => optionsIterator(setIndexOfHightlightedOption), [options])
 
     React.useEffect(() => {
         document.addEventListener('keydown', optionsIteratorHandler);
         return () => { document.removeEventListener('keydown', optionsIteratorHandler); }
-    }, [options, indexOfHightlightedOption]);
+    }, [options]);
 
 
     //Когда открыт dropDown предотвращаем скролл страницы по нажатию на клавиатуре кнопок вверх-вниз, чтобы страница не прыгала при итерации по опциям списка:
@@ -91,6 +83,7 @@ export const FilterFormSelectInputOptionList: FC<IFilterFormSelectInputOptionLis
         if (evt.key === 'Enter') {
             const option = options[indexOfHightlightedOption];
             option && setSelectedOption(option);
+            inputRef.value = '';
         }
     }, [options, indexOfHightlightedOption])
 

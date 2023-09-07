@@ -6,7 +6,6 @@ import { FilterFormContext } from "../FilterForm/FilterForm";
 import { useSearchParams } from "next/navigation";
 
 import { FilterFormTextInput } from "../FilterFormTextInput/FilterFormTextInput";
-import { DropDownIcon } from "../Icons/DropDownIcon";
 import { DropElement } from "../DropElement/DropElement";
 import { FilterFormSelectInputOptionList } from "../FilterFormSelectInputOptionList/FilterFormSelectInputOptionList";
 
@@ -55,7 +54,7 @@ export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, o
     const dropDownKeyboardHandler = React.useCallback((evt: KeyboardEvent) => {
         if (openedDrop === id && evt.key === 'Escape') !!toggleDropdown && toggleDropdown(undefined);
         if (openedDrop === id) return;
-        if (openedDrop === undefined && relativeElement.current === document.activeElement && evt.key === 'ArrowDown') {
+        if (openedDrop === undefined && relativeElement.current === document.activeElement && (evt.key === 'ArrowDown' || (evt.keyCode >= 65 && evt.keyCode <= 90) || (evt.keyCode >= 97 && evt.keyCode <= 122) || (evt.keyCode >= 1040 && evt.keyCode <= 1103))) {
             !!toggleDropdown && toggleDropdown(id);
         }
     }, [openedDrop, id]);
@@ -86,8 +85,18 @@ export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, o
     const selectedOptionName = getSelectedOptionUIName();
 
 
+    // в ref передается textInput и используется для вычисления размера dropdown, а также для обнуления значений инпута после выбора
+    const relativeElement = useRef<HTMLInputElement>(null);
+    const { width, height } = relativeElement.current?.getBoundingClientRect() || { top: 0, left: 0, width: 0, height: 0 }
+
+
     //По вводу в textInput запускается фильтр опций
     const [optionsToRender, setOptionsToRender] = React.useState(options);
+
+    React.useLayoutEffect(() => {
+        if (relativeElement.current && relativeElement.current.value === '') setOptionsToRender(options);
+    });
+
 
     const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         const inputLetters = evt?.target?.value;
@@ -100,10 +109,6 @@ export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, o
     }
 
 
-    // в ref передается textInput и используется для вычисления размера dropdown
-    const relativeElement = useRef<HTMLInputElement>(null);
-    const { width, height } = relativeElement.current?.getBoundingClientRect() || { top: 0, left: 0, width: 0, height: 0 }
-
 
 
     return (
@@ -111,7 +116,7 @@ export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, o
             <FilterFormTextInput id={label} label={label} ref={relativeElement} placeholder={selectedOptionName ? selectedOptionName : placeholder} onFocus={dropDownOnFocusHandler} onBlur={dropDownOnBlurHandler} onChange={onChange} debounceDelay={0} />
             <DropDownButton isDropOpened={openedDrop === id} onClick={dropDownToggleBtnHandler} extraClass={styles.toggleBtn} />
             {openedDrop === id && relativeElement.current && options.length > 0 && <DropElement top={height + 25} left={0} width={width}>
-                <FilterFormSelectInputOptionList categoryName={id} options={optionsToRender} setSelectedOption={selectOption} />
+                <FilterFormSelectInputOptionList categoryName={id} options={optionsToRender} setSelectedOption={selectOption} inputRef={relativeElement.current} />
             </DropElement>}
         </div>
     )

@@ -1,16 +1,24 @@
 .section {
     position: sticky;
     top: 110px;
-    height: max-content;
+    height: calc(100lvh - 48px - 87px - 70px);
+    min-height: min-content;
+    /* min-height: 355px; */
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    z-index: 7;
+    z-index: 2;
+}
+
+.section .underlay {
+    height: 100%;
+    min-height: min-content; 
 }
 
 @media (max-width: 970px) {
     .section {
         top: 76px;
+        height: calc(100lvh - 35px - 60px - 55px);
     }
 
     .section_active {
@@ -24,7 +32,7 @@
         position: fixed;
         width: 250px;
         left: -100vw;
-        top: 48px;
+        top: 53px;
         transition: transform .4s ease-out;
         box-shadow: -5px 0 12px 4px rgba(27, 21, 25, 0.12);
     }

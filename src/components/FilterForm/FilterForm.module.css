@@ -1,5 +1,4 @@
 .section {
-    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -17,11 +16,4 @@
 .mobileBtn {
     margin-top: 16px;
     width: 100%;
-}
-
-@media (max-width: 970px) {
-    .section {
-        height: 524px;
-    }
-
 }

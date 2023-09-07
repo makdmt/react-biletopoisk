@@ -8,6 +8,7 @@
 - React / App Router / React Context / React createPortal
 - Redux Toolkit / RTK Query
 - Технологии оптимизации: debounce на input, ленивая загрузка картинок вне viewport, доступ к хранилищу по селекторам.
+- Отработаны шаблоны программирования: Compound components / HOC / Render prop
 
 Посмотреть web-страницу на gitHub Pages: https://makdmt.github.io/react-burger/
 

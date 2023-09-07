@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector, useDispatch } from "react-redux/es/exports";
-import { selectItemAmount } from '../../redux/features/cart/selector';
+import { useDispatch } from "react-redux";
 import { cartActions } from "@/redux/features/cart";
 import { Counter } from "../Counter/Counter";
 import { Modal } from "../Modal/Modal";
@@ -13,14 +12,13 @@ import type { IFilmDetails } from "@/services/types/data";
 import styles from './FilmListElement.module.css'
 import { LayoutCommonBlock } from "../LayoutCommonBlock/LayoutCommonBlock";
 import { CloseIcon } from "../Icons/CloseIcon";
-import Link from "next/link";
+
 
 type TFilmListElement = Omit<IFilmDetails, 'releaseYear' | 'director' | 'description' | 'rating' | 'reviewIds'>
 
 export const FilmListElement: FC<TFilmListElement & { isRenderInCart: boolean }> = ({ id, title, genre, posterUrl, isRenderInCart }) => {
 
     const dispatch = useDispatch();
-    const amount = useSelector((state) => selectItemAmount(state, id));
     const [modalOpened, setmodalOpened] = useState<boolean>(false);
     const router = useRouter();
 
@@ -45,11 +43,6 @@ export const FilmListElement: FC<TFilmListElement & { isRenderInCart: boolean }>
         dispatch(cartActions.delete(id));
     }, [id])
 
-    const decrementHandler = React.useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
-        evt.stopPropagation();
-        amount > 1 ? dispatch(cartActions.decrement(id)) : setmodalOpened(true);
-    }, [id, amount])
-
 
     return (
         <li className={styles.container} onClick={() => router.push(`details/${id}`)}>
@@ -62,7 +55,7 @@ export const FilmListElement: FC<TFilmListElement & { isRenderInCart: boolean }>
                     <p className={styles.genreInfo}>{genre}</p>
                 </div>
                 <div className={styles.counterContainer}>
-                    <Counter filmId={id} extraDecrementHandler={isRenderInCart ? decrementHandler : undefined} />
+                    <Counter filmId={id} openModalFunc={isRenderInCart ? setmodalOpened : undefined} />
                     {isRenderInCart && <button type='button' title='удалить фильм из корзины' onClick={openModal}><CloseIcon /></button>}
                 </div>
                 {modalOpened && <Modal closeByClickFunc={closeModalByClick} closeByEscFunc={closeModalByPressEsc}>
