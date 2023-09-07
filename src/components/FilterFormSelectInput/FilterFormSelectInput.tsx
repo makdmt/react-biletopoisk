@@ -71,6 +71,7 @@ export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, o
     const selectOption = (option: IFilterCategoryOptions) => {
         onSelect(id, option.optionNameInApi);
         toggleDropdown && toggleDropdown(undefined);
+        if (relativeElement.current) relativeElement.current.value = '';
     }
 
     //Выбранное значение берется из query параметра адресной строки, а затем резолвится в соответствующее имя опции для подстановки в placeholder
@@ -109,14 +110,12 @@ export const FilterFormSelectInput: FC<IFilterFormSelectInput> = ({ id, label, o
     }
 
 
-
-
     return (
         <div className={`${styles.section} ${extraClass}`}>
             <FilterFormTextInput id={label} label={label} ref={relativeElement} placeholder={selectedOptionName ? selectedOptionName : placeholder} onFocus={dropDownOnFocusHandler} onBlur={dropDownOnBlurHandler} onChange={onChange} debounceDelay={0} />
             <DropDownButton isDropOpened={openedDrop === id} onClick={dropDownToggleBtnHandler} extraClass={styles.toggleBtn} />
             {openedDrop === id && relativeElement.current && options.length > 0 && <DropElement top={height + 25} left={0} width={width}>
-                <FilterFormSelectInputOptionList categoryName={id} options={optionsToRender} setSelectedOption={selectOption} inputRef={relativeElement.current} />
+                <FilterFormSelectInputOptionList categoryName={id} options={optionsToRender} setSelectedOption={selectOption} />
             </DropElement>}
         </div>
     )
