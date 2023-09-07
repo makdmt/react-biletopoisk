@@ -1,4 +1,3 @@
-
 import React, { FC } from "react";
 
 export const FilterIcon: FC = () => {

@@ -21,7 +21,7 @@ export const Modal = ({ closeByEscFunc, closeByClickFunc, children }: IModal): R
   }, [])
 
 
-  const rootHtml = document.getElementById('root') as HTMLElement;
+  const rootHtml = document.getElementById('modalRoot') as HTMLElement;
 
   return ReactDOM.createPortal(
     (

@@ -1,14 +1,15 @@
 .section {
     animation: rotation 1s linear infinite normal forwards running;
     position: absolute;
-    left: 50%;
     top: 40%;
+    left: 50%;
 }
 
 @keyframes rotation {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }

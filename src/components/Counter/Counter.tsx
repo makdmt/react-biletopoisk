@@ -10,10 +10,10 @@ import styles from './Counter.module.css'
 
 interface ICounter {
     filmId: string,
-    extraDecrementHandler?: (evt: React.MouseEvent<HTMLButtonElement>) => void
+    openModalFunc?: (state: boolean) => void
 }
 
-export const Counter: FC<ICounter> = ({ filmId, extraDecrementHandler }) => {
+export const Counter: FC<ICounter> = ({ filmId, openModalFunc }) => {
 
     const amount = useSelector((state) => selectItemAmount(state, filmId));
     const dispatch = useDispatch();
@@ -25,14 +25,19 @@ export const Counter: FC<ICounter> = ({ filmId, extraDecrementHandler }) => {
 
     const decrementHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
         evt.stopPropagation();
-        dispatch(cartActions.decrement(filmId));
+        !!openModalFunc
+            ? amount > 1
+                ? dispatch(cartActions.decrement(filmId))
+                : openModalFunc(true)
+            : dispatch(cartActions.decrement(filmId))
+
     }
 
     return (
         <div className={styles.section}>
             <button className={styles.button} onClick={incrementHandler}>+</button>
             <span className={styles.amountNumber}>{amount}</span>
-            <button className={styles.button} onClick={extraDecrementHandler ? extraDecrementHandler : decrementHandler}>-</button>
+            <button className={styles.button} onClick={decrementHandler}>-</button>
         </div>
     )
 }

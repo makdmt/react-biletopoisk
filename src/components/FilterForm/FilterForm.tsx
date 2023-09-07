@@ -76,7 +76,7 @@ export const FilterForm: FC = () => {
 
 
     //Для мобильной версии добавляем кнопку "Показать результаты", которая скрывает сайдбар с формой
-    const [mobile, setMobile] = React.useState(isMobile());
+    const [mobile, setMobile] = React.useState(false);
     React.useLayoutEffect(() => {
         setMobile(isMobile());
     })

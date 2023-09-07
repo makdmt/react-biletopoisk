@@ -2,7 +2,7 @@
 
 import React, { FC } from "react";
 
-import { useDispatch, useSelector } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCartModule } from "@/redux/features/cart/selector";
 
 import { CartIcon } from "../Icons/CartIcon";

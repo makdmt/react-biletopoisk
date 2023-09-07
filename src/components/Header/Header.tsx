@@ -21,7 +21,7 @@ export const Header: FC = () => {
 
     const router = useRouter();
 
-    const [mobile, setMobile] = React.useState(isMobile());
+    const [mobile, setMobile] = React.useState(false);
     React.useLayoutEffect(() => {
         setMobile(isMobile());
     })

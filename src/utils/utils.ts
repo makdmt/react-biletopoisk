@@ -1,5 +1,6 @@
 export const isMobile = (screenWidth: number = 550): boolean => {
-    return window.innerWidth <= screenWidth ? true : false;
+    if (typeof window === "object") return window.innerWidth <= screenWidth ? true : false;
+    return false;
 }
 
 export const filterByFirtsCharsInWords = (strBeginning: string, arr: Array<string>) => {

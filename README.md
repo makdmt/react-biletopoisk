@@ -8,8 +8,9 @@
 - React / App Router / React Context / React createPortal
 - Redux Toolkit / RTK Query
 - Технологии оптимизации: debounce на input, ленивая загрузка картинок вне viewport, доступ к хранилищу по селекторам.
+- Отработаны шаблоны программирования: Compound components / HOC / Render prop
 
-Посмотреть web-страницу на gitHub Pages: https://makdmt.github.io/react-burger/
+Посмотреть web-страницу на Vercel: https://react-biletopoisk.vercel.app/
 
 ## Как собрать и запустить код
 
@@ -26,4 +27,4 @@ npm run dev
 После этого приложение можно открыть в браузере по адресу http://localhost:3000
 
 ## Планы по доработке:
-Настроить accessibility.
+Настроить accessibility

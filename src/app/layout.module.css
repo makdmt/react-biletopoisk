@@ -5,16 +5,23 @@
     position: relative;
 }
 
+.modalRoot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
 @media (max-width: 970px) {
     .section {
-        min-height: calc(100lvh - 32px - 60px - 55px);
+        min-height: calc(100lvh - 35px - 60px - 55px);
         padding: var(--default-tablet-paddings);
 }
 }
 
 @media (max-width: 550px) {
     .section {
-        min-height: calc(100lvh - 16px - 40px - 35px);
+        min-height: calc(100lvh - 23px - 40px - 35px);
         padding: var(--default-mobile-paddings);
     }
 }

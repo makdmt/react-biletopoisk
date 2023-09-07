@@ -1,3 +1,5 @@
+'use client'
+
 import React, { FC } from "react";
 
 import { LayoutContext } from "@/app/layout";
@@ -40,7 +42,7 @@ export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
         <>
             {isSideBarStateVisible && <ModalOverlay appearance={'transparent'} />}
             <aside className={`${styles.section} ${isSideBarStateVisible ? styles.section_active : ''}`}>
-                <LayoutCommonBlock >
+                <LayoutCommonBlock extraClass={styles.underlay}>
                     {isSideBarStateVisible && <CloseButton type={'button'} onClick={() => hideSideBar()} />}
                     {children}
                 </LayoutCommonBlock>
