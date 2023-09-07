@@ -10,7 +10,7 @@
 - Технологии оптимизации: debounce на input, ленивая загрузка картинок вне viewport, доступ к хранилищу по селекторам.
 - Отработаны шаблоны программирования: Compound components / HOC / Render prop
 
-Посмотреть web-страницу на gitHub Pages: https://makdmt.github.io/react-burger/
+Посмотреть web-страницу на Vercel: https://react-biletopoisk.vercel.app/
 
 ## Как собрать и запустить код
 

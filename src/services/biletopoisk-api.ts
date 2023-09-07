@@ -4,7 +4,7 @@ import type { IFilmDetails, ICinima, IFilmReview } from "./types/data";
 
 export const biletopoiskApi = createApi({
   reducerPath: 'biletopoiskApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://react-biletopoisk-api.onrender.com/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api/' }),
     endpoints: (builder) => ({
       getMovies: builder.query<IFilmDetails[], void>({ query: () => 'movies'}),
       getMovie: builder.query<IFilmDetails, string>({ query: (movieId) => `movie?movieId=${movieId}`}),
