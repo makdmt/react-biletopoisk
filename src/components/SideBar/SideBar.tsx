@@ -12,7 +12,7 @@ import styles from './SideBar.module.css'
 
 export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
 
-    const { setPageWithSideBar, isSideBarStateVisible, hideSideBar } = React.useContext(LayoutContext);
+    const { setPageWithSideBar, isSideBarStateVisible, hideSideBar, isMobile } = React.useContext(LayoutContext);
 
     React.useLayoutEffect(() => {
         setPageWithSideBar(true);
@@ -43,7 +43,7 @@ export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
             {isSideBarStateVisible && <ModalOverlay appearance={'transparent'} />}
             <aside className={`${styles.section} ${isSideBarStateVisible ? styles.section_active : ''}`}>
                 <LayoutCommonBlock extraClass={styles.underlay}>
-                    {isSideBarStateVisible && <CloseButton type={'button'} onClick={() => hideSideBar()} />}
+                    {isMobile && <CloseButton type={'button'} onClick={() => hideSideBar()} />}
                     {children}
                 </LayoutCommonBlock>
             </aside>

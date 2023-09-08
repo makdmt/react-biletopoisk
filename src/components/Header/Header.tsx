@@ -11,8 +11,6 @@ import { TotalCount } from "../TotalCount/TotalCount";
 import { FilterIcon } from "../Icons/FilterIcon";
 import { ArrowLeftIcon } from "../Icons/ArrowLeftIcon";
 
-import { isMobile } from '../../utils/utils'
-
 import styles from './Header.module.css'
 
 
@@ -21,12 +19,7 @@ export const Header: FC = () => {
 
     const router = useRouter();
 
-    const [mobile, setMobile] = React.useState(false);
-    React.useLayoutEffect(() => {
-        setMobile(isMobile());
-    })
-
-    const { isPageWithSideBar, toggleSideBar, isSideBarStateVisible } = React.useContext(LayoutContext);
+    const { isPageWithSideBar, toggleSideBar, isSideBarStateVisible, isMobile: mobile } = React.useContext(LayoutContext);
 
 
     return (
