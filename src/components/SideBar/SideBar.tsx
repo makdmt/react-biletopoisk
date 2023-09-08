@@ -27,7 +27,7 @@ export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
     }, [])
 
     React.useEffect(() => {
-        if (isSideBarStateVisible) {
+        if (isSideBarStateVisible && isMobile) {
             document.body.classList.add("no-scroll");
             document.addEventListener('keydown', hideSideBarByEsc);
         } else {
@@ -35,7 +35,7 @@ export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
             document.removeEventListener('keydown', hideSideBarByEsc);
         }
         return () => document.removeEventListener('keydown', hideSideBarByEsc);
-    }, [isSideBarStateVisible])
+    }, [isSideBarStateVisible, isMobile])
 
 
     return (
