@@ -40,7 +40,7 @@ export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
 
     return (
         <>
-            {isSideBarStateVisible && <ModalOverlay appearance={'transparent'} />}
+            {isSideBarStateVisible && isMobile && <ModalOverlay appearance={'transparent'} />}
             <aside className={`${styles.section} ${isSideBarStateVisible ? styles.section_active : ''}`}>
                 <LayoutCommonBlock extraClass={styles.underlay}>
                     {isMobile && <CloseButton type={'button'} onClick={() => hideSideBar()} />}

@@ -4,7 +4,7 @@ export function useMediaQuery(maxWidth: number = 550) {
 
     const [isMobile, setIsMobile] = React.useState(false);
 
-    const mediaQueryHandler = React.useCallback((evt: MediaQueryListEvent) => {
+    const mediaQueryHandler = React.useCallback((evt: MediaQueryListEvent | MediaQueryList) => {
         if (evt.matches) {
             setIsMobile(true);
         } else {
@@ -13,8 +13,9 @@ export function useMediaQuery(maxWidth: number = 550) {
     },[])
 
     React.useLayoutEffect(() => {
-        const mediaQueryList  = window.matchMedia(`(max-width: ${maxWidth}px)`);
-        mediaQueryList .addEventListener('change', mediaQueryHandler);
+        const mediaQueryList = window.matchMedia(`(max-width: ${maxWidth}px)`);
+        mediaQueryHandler(mediaQueryList);
+        mediaQueryList.addEventListener('change', mediaQueryHandler);
     },[])
 
     return isMobile;
