@@ -6,9 +6,12 @@ import { StoreProvider } from '@/redux/StoreProvider'
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
 
+import { useMediaQuery } from '@/hooks/useMediaQuery'
+
 import styles from './layout.module.css'
 import './globals.css'
 import { Roboto } from 'next/font/google'
+
 const roboto = Roboto({
   weight: '400',
   subsets: ['latin'],
@@ -23,7 +26,8 @@ interface ISideBarVisibilityState {
   isSideBarStateVisible: boolean,
   showSideBar: Function,
   hideSideBar: Function,
-  toggleSideBar: Function
+  toggleSideBar: Function,
+  isMobile: boolean
 }
 
 export const LayoutContext = React.createContext<ISideBarVisibilityState>({
@@ -33,10 +37,13 @@ export const LayoutContext = React.createContext<ISideBarVisibilityState>({
   showSideBar: () => { },
   hideSideBar: () => { },
   toggleSideBar: () => { },
+  isMobile: false,
 })
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+
+  const isMobile = useMediaQuery();
 
   const [isPageWithSideBar, setPageWithSideBar] = React.useState(false);
   const [isSideBarStateVisible, setSideBarStateVisible] = React.useState(false);
@@ -63,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body id={'root'}>
       <div id={'modalRoot'} className={styles.modalRoot}></div>
         <StoreProvider>
-          <LayoutContext.Provider value={{ isPageWithSideBar, setPageWithSideBar, isSideBarStateVisible, showSideBar, hideSideBar, toggleSideBar }}>
+          <LayoutContext.Provider value={{ isPageWithSideBar, setPageWithSideBar, isSideBarStateVisible, showSideBar, hideSideBar, toggleSideBar, isMobile }}>
             <Header />
             <main className={styles.section}>
               {children}

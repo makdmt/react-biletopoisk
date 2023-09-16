@@ -12,7 +12,7 @@ import styles from './SideBar.module.css'
 
 export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
 
-    const { setPageWithSideBar, isSideBarStateVisible, hideSideBar } = React.useContext(LayoutContext);
+    const { setPageWithSideBar, isSideBarStateVisible, hideSideBar, isMobile } = React.useContext(LayoutContext);
 
     React.useLayoutEffect(() => {
         setPageWithSideBar(true);
@@ -27,7 +27,7 @@ export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
     }, [])
 
     React.useEffect(() => {
-        if (isSideBarStateVisible) {
+        if (isSideBarStateVisible && isMobile) {
             document.body.classList.add("no-scroll");
             document.addEventListener('keydown', hideSideBarByEsc);
         } else {
@@ -35,15 +35,15 @@ export const SideBar: FC<{ children: React.ReactNode }> = ({ children }) => {
             document.removeEventListener('keydown', hideSideBarByEsc);
         }
         return () => document.removeEventListener('keydown', hideSideBarByEsc);
-    }, [isSideBarStateVisible])
+    }, [isSideBarStateVisible, isMobile])
 
 
     return (
         <>
-            {isSideBarStateVisible && <ModalOverlay appearance={'transparent'} />}
+            {isSideBarStateVisible && isMobile && <ModalOverlay appearance={'transparent'} />}
             <aside className={`${styles.section} ${isSideBarStateVisible ? styles.section_active : ''}`}>
                 <LayoutCommonBlock extraClass={styles.underlay}>
-                    {isSideBarStateVisible && <CloseButton type={'button'} onClick={() => hideSideBar()} />}
+                    {isMobile && <CloseButton type={'button'} onClick={() => hideSideBar()} />}
                     {children}
                 </LayoutCommonBlock>
             </aside>

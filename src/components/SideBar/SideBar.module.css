@@ -3,7 +3,6 @@
     top: 110px;
     height: calc(100lvh - 48px - 87px - 70px);
     min-height: min-content;
-    /* min-height: 355px; */
     display: flex;
     flex-direction: column;
     border-radius: 8px;
@@ -11,18 +10,13 @@
 }
 
 .section .underlay {
-    height: 100%;
-    min-height: min-content; 
+    flex-grow: 1;
 }
 
 @media (max-width: 970px) {
     .section {
         top: 76px;
         height: calc(100lvh - 35px - 60px - 55px);
-    }
-
-    .section_active {
-        transform: translateX(100vw);
     }
 }
 
@@ -39,5 +33,6 @@
 
     .section_active {
         left: -250px;
+        transform: translateX(100vw);
     }
 }
