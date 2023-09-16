@@ -14,7 +14,6 @@ import { Button } from "../Button/Button";
 
 import type { TFilters, IFilterCategoryOptions } from '../../services/types/data'
 import { filterLabels, genres } from "@/services/consts";
-import { isMobile } from "@/utils/utils";
 
 import styles from './FilterForm.module.css'
 
@@ -41,7 +40,7 @@ export const FilterFormContext = React.createContext<IFilterFormContext>({
 
 export const FilterForm: FC = () => {
 
-    const { hideSideBar } = React.useContext(LayoutContext)
+    const { hideSideBar, isMobile: mobile } = React.useContext(LayoutContext)
 
     const [openedDrop, setActiveDrop] = React.useState<TDropOpenCategory>(undefined);
 
@@ -75,16 +74,10 @@ export const FilterForm: FC = () => {
     }, [cinimas])
 
 
-    //Для мобильной версии добавляем кнопку "Показать результаты", которая скрывает сайдбар с формой
-    const [mobile, setMobile] = React.useState(false);
-    React.useLayoutEffect(() => {
-        setMobile(isMobile());
-    })
-
     //Для мобильной версии submit скрывает сайдбар с формой
     const onSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
-        isMobile() && !openedDrop && hideSideBar();
+        mobile && !openedDrop && hideSideBar();
     }
 
     //Значения фильтров применяются путем добавления в query параметры:
